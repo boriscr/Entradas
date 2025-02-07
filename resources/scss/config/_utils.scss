@@ -1,0 +1,17 @@
+%centrar {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+%buttonStyle{
+    border-radius: 10px;
+    padding: 5px;
+    text-align: center;
+}
+@mixin colorStyles($background, $color, $borde){
+    background-color: $background;
+    color: $color;
+    border: 1px solid $borde;
+}

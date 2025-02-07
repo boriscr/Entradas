@@ -1,0 +1,369 @@
+@use 'config/utils';
+
+.containerMensajeAlert {
+    align-items: end;
+    @extend %centrar;
+}
+
+%alertMensaje {
+    @extend %centrar;
+    height: 45px;
+    border-radius: 10px;
+    font-size: 16px;
+    width: 300px;
+    right: 100%;
+    text-align: center;
+}
+
+.mensajeAlerta {
+    @extend %alertMensaje;
+    @include utils.colorStyles(rgb(144, 252, 168), green, green);
+}
+
+.mensajeAlertaError {
+    @extend %alertMensaje;
+    @include utils.colorStyles(rgb(252, 144, 144), rgb(170, 11, 11), rgb(170, 11, 11));
+}
+
+/*Home*/
+
+.contenedor-general{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    .box-contenedor{
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+    }
+}
+
+
+.contenedor-secundario {
+    margin-top: 20px;
+}
+
+
+.box-info-comprar>* {
+    @extend %centrar;
+}
+
+.box-link-comprar {
+    text-align: center;
+}
+
+/*Link Buttons links ver - comprar Home*/
+.btn-link {
+    margin-top: 3px;
+    @extend %buttonStyle;
+    @include utils.colorStyles(var(--color-principal), var(--color-secundario), var(--color-terciario));
+    text-decoration: none;
+
+    &:hover {
+        @include utils.colorStyles(var(--color-terciario), var(--color-secundario), var(--color-secundario));
+    }
+
+    .bi {
+        color: var(--color-secundario);
+    }
+}
+
+.link-info {
+    width: 50%;
+}
+
+.link-comprar {
+    width: 100%;
+
+}
+
+/*Box color segun tipo de entradas------------------------------------------------*/
+
+
+.style-contenedor-general {
+    justify-content: space-between;
+    @extend %centrar;
+    width: 300px;
+    flex-wrap: wrap;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+
+    * {
+        width: 100%;
+    }
+
+    .titulo-card {
+        @extend %centrar;
+        color: var(--color-terciario);
+        font-weight: bold;
+    }
+}
+
+@keyframes mover-gradientes {
+    0% {
+        background-position: 0% 0%;
+    }
+
+    100% {
+        background-position: 100% 100%;
+    }
+}
+
+.evento-contenedor-vip:hover,
+.evento-contenedor-preferencial:hover {
+    transform: scale(1.05);
+}
+
+@keyframes bordes-coloridos {
+    0% {
+        border-color: #faddb7;
+    }
+
+    25% {
+        border-color: #8A6E2F;
+    }
+
+    50% {
+        border-color: #9f7928;
+    }
+
+    75% {
+        border-color: #FDB931;
+    }
+
+    100% {
+        border-color: #FEDB37;
+    }
+}
+
+%estyleVipCard {
+    filter: drop-shadow(0 0 10px #9f7928);
+    color: black;
+    border: 2px solid;
+    transition: transform 0.3s ease-in-out;
+    border-radius: 15px;
+    animation: mover-gradientes 2s ease-in-out infinite alternate,
+        bordes-coloridos 5s linear infinite;
+
+    .tipo-de-entrada {
+        background: radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%, transparent 80%),
+            radial-gradient(ellipse farthest-corner at left top, #faddb7 0%, #FFFFAC 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%);
+        background-size: 150% 150%;
+        animation: mover-gradientes 3s ease-in-out infinite alternate;
+        border-radius: 10px;
+
+        p {
+            filter: drop-shadow(0 0 10px #412c01);
+
+        }
+    }
+}
+
+.evento-contenedor-vip {
+    @extend %estyleVipCard;
+    background: radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%, transparent 80%),
+        radial-gradient(ellipse farthest-corner at left top, #faddb7 0%, #FFFFAC 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%);
+    background-size: 150% 150%;
+}
+
+.evento-contenedor-preferencial {
+    @extend %estyleVipCard;
+    background: radial-gradient(ellipse farthest-corner at right bottom, #2f4f4f 0%, #4f4f4f 25%, #696969 50%, #a9a9a9 75%, transparent 100%),
+        radial-gradient(ellipse farthest-corner at left top, #2e2e2e 0%, #3c3c3c 25%, #505050 50%, #696969 75%, #808080 100%);
+    background-size: 100% 200%;
+}
+
+
+.evento-contenedor-primera-fila {
+    background: radial-gradient(ellipse farthest-corner at right bottom, #A9FBCB 0%, #34D399 30%, #059669 60%, transparent 100%);
+}
+
+.evento-contenedor-platea-baja {
+    background: radial-gradient(ellipse farthest-corner at right bottom, #f8a765 0%, #fa8e5c 30%, #fa3d2c 60%, transparent 100%);
+}
+
+.evento-contenedor-platea-alta {
+    background: radial-gradient(ellipse farthest-corner at right bottom, #6fb4f8 0%, #5c97fc 30%, #3d6dd6 60%, transparent 100%);
+}
+
+.evento-contenedor-anticipadas {
+    background: radial-gradient(ellipse farthest-corner at right bottom, #FFA500 0%, #FF8C00 8%, #FF7F50 30%, #FF6347 40%, transparent 80%),
+        radial-gradient(ellipse farthest-corner at left top, #FFE5B4 0%, #FFDAB9 8%, #FFB74D 25%, #FF8C42 62.5%, #FF8C42 100%);
+}
+
+.evento-contenedor-especial {
+    background: radial-gradient(ellipse farthest-corner at right bottom, #FFB6C1 0%, #FF69B4 30%, #FF1493 60%, transparent 100%);
+}
+
+.evento-contenedor-tribuna {
+    background: radial-gradient(ellipse farthest-corner at right bottom, #E5C1FF 0%, #A76DFF 30%, #5B3FB3 60%, transparent 100%);
+}
+
+.evento-contenedor-asiento-ubicacion {
+    background: radial-gradient(ellipse farthest-corner at right bottom, #f36be1 0%, #aa2da6 30%, #c42737 60%, transparent 100%);
+}
+
+.evento-contenedor-ubicacion {
+    /*background: radial-gradient(ellipse farthest-corner at right bottom, #D4EDDA 0%, #A8E8B9 30%, #3BBF76 60%, transparent 100%);  */
+    background: radial-gradient(ellipse farthest-corner at right bottom, #f782e7 0%, #ff5162 30%, #962631 60%, transparent 100%);
+}
+
+.evento-contenedor-asiento {
+    background: radial-gradient(ellipse farthest-corner at right bottom, #fdb4f3 0%, #fd8d98 30%, #962631 60%, transparent 100%);
+}
+
+.evento-contenedor-general {
+    background: radial-gradient(ellipse farthest-corner at right bottom, #3F80E1 0%, #5ed8f7 30%, #1a7b88 60%, transparent 100%);
+}
+
+
+.evento-contenedor-otro {
+    @include utils.colorStyles(var(--color-secundario), var(--color-terciario), none);
+
+    H5 {
+        color: var(--color-terciario);
+    }
+}
+
+/*Fin boxs--------------------------------------------*/
+
+.nombre-de-entrada {
+    font-size: 30px;
+    font-weight: bolder;
+    color: var(--color-principal);
+}
+
+.tipo-de-entrada {
+    width: 100%;
+    @include utils.colorStyles(var(--color-terciario), orange, none);
+    font-weight: bold;
+    text-align: center;
+
+    p {
+        display: inline;
+    }
+}
+
+.inicio-card {
+    text-align: start;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+/*Box sin eventos*/
+.box-sin-eventos {
+    @extend %centrar;
+    flex-direction: column;
+    border-radius: 10px;
+    width: 100%;
+    padding: 5px;
+
+    img {
+        width: 100px;
+    }
+}
+
+
+/*Vista->Consulta Entradas*/
+
+#contenedor-secundario-entrada {
+    transform: none;
+    color: black;
+    background-color: #fff;
+}
+
+.contenedor-secundario-entrada {
+    @include utils.colorStyles(var(--color-terciario), var(--color-secundario), none);
+
+    .nombre-de-entrada {
+        text-align: center;
+    }
+
+    .titulo-H5 {
+        text-align: center;
+    }
+
+    .section-col {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+        flex-wrap: wrap;
+
+        .column {
+            width: 400px;
+            flex-wrap: wrap;
+            border: 1px solid #b1b0b0;
+            padding: 10px;
+        }
+    }
+}
+
+
+/*bootstrap styles contains*/
+.col {
+    gap: 5px;
+    border: 1px solid var(--color-principal);
+}
+
+/*Tickets*/
+.box {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    width: 1280px;
+    height: 620px;
+    background-image: linear-gradient(40deg, rgb(202, 87, 174), rgb(80, 7, 7));
+    padding: 20px;
+}
+
+/*Btns Editar Eliminar Eventos*/
+.box-btn-edit-del {
+    flex-direction: row;
+    @extend %centrar;
+
+    a {
+        @extend %buttonStyle;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 45%;
+        height: 40px;
+        background-color: #055c3c;
+        color: #fff;
+
+        &:hover {
+            @include utils.colorStyles(#17dd8a, #02472e, none);
+        }
+    }
+
+    form {
+        width: 45%;
+
+        button {
+            @extend %buttonStyle;
+            margin: 1px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 40px;
+            background-color: #962631;
+
+            &:hover {
+                @include utils.colorStyles(#fd5353, #9e0505, none);
+            }
+
+            .bi {
+                font-size: 20px;
+            }
+        }
+    }
+}
+
+@media (max-width: 620px){
+    .contenedor-secundario-entrada{
+        width: 100%;
+    }
+}

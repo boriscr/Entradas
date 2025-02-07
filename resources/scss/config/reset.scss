@@ -1,0 +1,119 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+:root{
+    --color-principal: rgb(71, 193, 250);
+    --color-secundario: #fff;
+    --color-terciario: #313131;
+    --background-color-light: #f1f1f1;
+    --background-color-dark: #313131;
+    --color-black: #1a1a1a;
+}
+
+a{
+    text-decoration: none;
+}
+.collapse a:hover{
+    color: var(--color-principal);
+}
+h3 {
+    color: var(--color-principal);
+}
+H5{
+    color: var(--color-secundario);
+}
+p{
+    margin: 0;
+}
+
+/*Form layouts*/
+select{
+    padding: 3px;
+    text-align: center;
+}
+select:focus{
+    border: none;
+    outline: 2px solid var(--color-principal);
+    box-shadow: 0 0 10px 0 var(--color-principal);
+}
+input {
+    text-align: center;
+    margin-top: 8px;
+    margin-bottom: 4px;
+    border: 2px solid rgb(180, 180, 180);
+    /* Color del borde normal */
+    outline: none;
+    /* Elimina el "outline" por defecto */
+    border-radius: 5px;
+    padding: 2px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 20px;
+}
+
+input:focus:not([type="checkbox"]){
+    border: none;
+    /* Cambia a azul al enfocar */
+    outline: 2px solid var(--color-principal);
+    /* Cambia el "outline" al hacer clic */
+    box-shadow: 0 0 10px 0 var(--color-principal);
+    /* Agrega una sombra al hacer clic */
+}
+input[type=checkbox]{
+    width: 25px;
+    height: 25px;
+    accent-color: var(--color-principal);
+}
+
+textarea {
+    margin-top: 5px;
+    margin-bottom: 4px;
+    padding: 2px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+textarea:focus {
+    border: none;
+    outline: 2px solid var(--color-principal);
+    /* Cambia el "outline" al hacer clic */
+    box-shadow: 0 0 10px 0 var(--color-principal);
+    /* Agrega una sombra al hacer clic */
+}
+
+
+@media (prefers-color-scheme: dark){
+    .formularioBox form {
+        background-color: var(--color-black);
+    }
+    body,form,textarea,select,input:not([type="checkbox"]) {
+        background-color:var(--background-color-dark);
+        color: var(--background-color-light);
+    }
+    .navbar{
+        background-color: var(--color-black);
+    }
+    .navbar .container-fluid>*,.collapse a{
+        color: var(--background-color-light);
+    }
+
+}
+@media (prefers-color-scheme: light){
+    .formularioBox form {
+        background-color: var(--color-secundario);
+    }
+
+    body,form,textarea,select,input:not([type="checkbox"]) {
+        background-color: var(--background-color-light);
+        color: var(--background-color-dark);
+    }
+    .navbar{
+        background-color: var(--background-color-light);
+    }
+    .navbar .container-fluid>*,.collapse a{
+        color: var(--background-color-dark);
+    }
+    .contenedor-general{
+        color: var(--background-color-dark);
+    }
+}

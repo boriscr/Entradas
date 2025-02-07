@@ -1,0 +1,120 @@
+@use '../config/utils';
+
+.formularioBox {
+    @extend %centrar;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    height: auto;
+    font-size: 20px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+    form {
+        display: flex;
+        justify-content: center;
+        padding: 15px;
+        width: 100%;
+        flex-wrap: wrap;
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        gap: 10px;
+
+        H3 {
+            top: 0;
+            text-align: center;
+        }
+
+        input,
+        button {
+            height: 40px;
+        }
+
+        textarea {
+            max-width: 100px;
+            min-width: 100%;
+            font-size: 20px;
+        }
+    }
+}
+
+.boxContenidoForm {
+    justify-content: start;
+    @extend %centrar;
+    border: 1px solid #b1b0b0;
+    border-radius: 10px;
+    width: 400px;
+    flex-wrap: wrap;
+
+}
+.contenidoForm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    border-radius: 10px;
+    padding: 5px;
+    * {
+        width: 100%;
+    }
+}
+
+.col{
+    text-align: start;
+    flex-direction: row;
+    @extend %centrar;
+}
+.box-publico-check,
+.box-descuento-check,
+.box-cantidad-entradas,
+.box-cupon-descuento,
+.box-ubicacion,
+.box-asiento-ubicacion {
+    display: none;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.error {
+    color: rgb(212, 63, 63);
+    font-size: 20px;
+    font-weight: bold;
+    background-color: rgb(255, 203, 203);
+    padding: 3px;
+    font-size: 12px;
+}
+
+.visibilidadError,
+.mensaje {
+    display: none;
+}
+
+.mensaje {
+    color: rgb(25, 131, 69);
+    font-size: 15px;
+    background-color: rgb(162, 248, 208);
+    padding: 3px;
+    font-size: 12px;
+}
+
+/*
+@media (max-width: 768px) {
+    .formularioBox {
+        height: auto;
+    }
+
+    .formularioBox form {
+        flex-direction: column;
+        width: 90%;
+    }
+
+    .boxContenidoForm {
+        width: 100%;
+    }
+
+    .boxContenidoForm .bi {
+        font-size: 50px;
+    }
+    .formularioBox form .boxContenidoForm>* {
+        width: 100%;
+    }
+    }*/
