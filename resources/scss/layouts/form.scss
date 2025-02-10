@@ -69,7 +69,7 @@
 .box-cupon-descuento,
 .box-ubicacion,
 .box-asiento-ubicacion {
-    display: none;
+    display: flex;
     justify-content: center;
     flex-direction: column;
 }
@@ -96,25 +96,3 @@
     font-size: 12px;
 }
 
-/*
-@media (max-width: 768px) {
-    .formularioBox {
-        height: auto;
-    }
-
-    .formularioBox form {
-        flex-direction: column;
-        width: 90%;
-    }
-
-    .boxContenidoForm {
-        width: 100%;
-    }
-
-    .boxContenidoForm .bi {
-        font-size: 50px;
-    }
-    .formularioBox form .boxContenidoForm>* {
-        width: 100%;
-    }
-    }*/

@@ -36,7 +36,8 @@ class EventoAdminController extends Controller
     }
     public function create()
     {
-        return view('crearTickets');
+        $publico_check=true;
+        return view('crearTickets', compact('publico_check'));
     }
 
     public function store(EntradaNuevaStoreRequest $request)
@@ -45,6 +46,7 @@ class EventoAdminController extends Controller
         //Columna1: Nombre, Descripción, Precio, Cantidad
         $entrada->nombre = $request->input('nombre_del_evento');
         $entrada->tipo_de_entrada = $request->input('tipo_de_entrada');
+        $entrada->descripcion_corta = $request->input('descripcion_corta');
         $entrada->descripcion = $request->input('descripcion');
         $entrada->precio = $request->input('precio');
         $entrada->cantidad = $request->input('cantidad');
@@ -71,7 +73,8 @@ class EventoAdminController extends Controller
             $request->validate([
                 'porcentaje_descuento' => 'required|numeric|min:1',
             ]);
-            $entrada->porcentaje_descuento = $request->input('porcentaje_descuento');
+            $entrada->porcentaje_de_descuento = $request->input('porcentaje_descuento');
+            $entrada->precio_final=$request->input('precio')-(($request->input('precio')*$request->input('porcentaje_descuento'))/100);
         }
         //6/3 Cupones
         if ($request->has('descuento_cupon_check')) {

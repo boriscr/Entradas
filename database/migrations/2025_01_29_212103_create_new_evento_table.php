@@ -16,6 +16,7 @@ return new class extends Migration
             //Columna1: Nombre, Descripción, Precio, Cantidad
             $table->string('nombre');
             $table->string('tipo_de_entrada');
+            $table->string('descripcion_corta');
             $table->text('descripcion');
             $table->decimal('precio', 8, 2);
             $table->integer('cantidad');
@@ -30,6 +31,7 @@ return new class extends Migration
             $table->integer('edad_minima')->nullable();
             $table->integer('edad_maxima')->nullable();
             $table->decimal('porcentaje_de_descuento',5,2)->nullable();
+            $table->decimal('precio_final')->nullable();
             $table->string('cupon')->nullable();
             $table->integer('cantidad_minima_de_entradas')->nullable();
             $table->integer('cantidad_maxima_de_entradas')->nullable();
