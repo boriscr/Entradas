@@ -36,6 +36,7 @@
     justify-content: center;
     flex-wrap: wrap;
     user-select: none;
+
     //Card view
     .div-contenedor-general-admin {
         margin-top: 20px;
@@ -43,6 +44,7 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+
         .style-contenedor-general {
             justify-content: space-between;
             @extend %centrar;
@@ -96,27 +98,32 @@
             border-radius: 10px;
         }
 
-        .valor-card{
-            .precioTachado{
+        .valor-card {
+            .precioTachado {
                 color: #2e2e2e;
                 text-decoration: line-through;
             }
-            .cuponDescuento{
+
+            .cuponDescuento {
                 background-color: #000000;
                 color: yellow;
             }
-            .precioConCupon{
+
+            .precioConCupon {
                 color: #fff;
                 background-color: #000000;
                 border-radius: 0px 0px 100px 100px;
             }
-            .precioDescuento{
+
+            .precioDescuento {
                 border-radius: 100px 0px 100px 0px;
                 background-size: 150% 150%;
                 color: #fff;
                 background: radial-gradient(ellipse farthest-corner at right bottom, #ffffff 0%, #fc5656 8%, #ff5100 30%, #ff0000 40%, transparent 80%),
-                radial-gradient(ellipse farthest-corner at left top, #ff9100 0%, #ffffff 8%, #f35a5a 25%, #ff5100  62.5%, #ff0000 100%);            }
+                    radial-gradient(ellipse farthest-corner at left top, #ff9100 0%, #ffffff 8%, #f35a5a 25%, #ff5100 62.5%, #ff0000 100%);
+            }
         }
+
         /*Btns Editar Eliminar Eventos*/
         .box-btn-edit-del {
             flex-direction: row;
@@ -133,18 +140,23 @@
                 color: #fff;
 
             }
-            .btn-editar{
+
+            .btn-editar {
                 background-color: rgb(44, 202, 136);
+
                 &:hover {
                     @include utils.colorStyles(#03a56f, #ffffff, none);
                 }
             }
-            .btn-finalizar{
+
+            .btn-finalizar {
                 background-color: rgb(250, 83, 83);
+
                 &:hover {
                     @include utils.colorStyles(#ff2e2e, #ffffff, none);
                 }
             }
+
             form {
                 width: 20%;
 
@@ -364,19 +376,28 @@
     background-color: #fff;
 }
 
+.contenedor-general {
+    position: absolute;
+    width: 100%;
+
+}
+
+%tipo-de-entrada{
+    background-color: var(--color-terciario);
+    color: orange;
+    font-weight: bold;
+}
 .contenedor-secundario-entrada {
     @include utils.colorStyles(var(--color-terciario), var(--color-secundario), none);
 
-    .nombre-de-entrada {
+    .nombre-de-entrada,.tipo-de-entrada ,.titulo-H5{
         text-align: center;
     }
-
-    .titulo-H5 {
-        text-align: center;
+    .tipo-de-entrada{
+        @extend %tipo-de-entrada;
     }
 
     .section-col {
-
         width: 100%;
         display: flex;
         justify-content: center;
@@ -390,28 +411,131 @@
             padding: 10px;
         }
     }
-}
 
+    .btn-comprar {
+        button {
+            border-radius: 10px;
+            padding: 10px;
+            background-color: #009ee3;
+            color: #fff;
+        }
 
-/*bootstrap styles contains*/
-.col {
-    gap: 5px;
-    border: 1px solid var(--color-principal);
-}
+        button:hover {
+            font-weight: bold;
+            color: #009ee3;
+            background-color: #fff;
+            transform: scale(1.1);
 
-/*Tickets*/
-.box {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    width: 1280px;
-    height: 620px;
-    background-image: linear-gradient(40deg, rgb(202, 87, 174), rgb(80, 7, 7));
-    padding: 20px;
-}
+        }
 
-
-
-@media (max-width: 620px) {
-    .contenedor-secundario-entrada {
-        width: 100%;
+        @extend %centrar;
     }
 }
+
+.container {
+    @extend %centrar;
+    position: relative;
+    height: 100%;
+    margin-top: 70px;
+    width: 500px;
+    display: none;
+    .containerElementos {
+        width: 95%;
+        box-shadow: 0 0 10px 10px #ffffff69;
+        @extend %centrar;
+        border-radius: 30px;
+        background-color: var(--color-secundario);
+        padding: 5px;
+
+        .title-comprar,form ,.tipo-de-entrada{
+            border-radius: 30px;
+        }
+
+        .title-comprar {
+            width: 100%;
+            color: var(--color-terciario);
+        }
+
+        form {
+            width: 100%;
+            border: 1px solid var(--color-principal);
+            align-items: start;
+            @extend %centrar;
+            padding: 20px;
+            input:not(#cantidad){
+                padding: 5px;
+                width: 100%;
+                text-align: start;
+                font-size: 17px;
+            }
+            #cantidad{
+                width: 100%;
+            }
+            .box-btn-cancelar-y-compar {
+                margin-top: 20px;
+                width: 100%;
+                flex-direction: row;
+                @extend %centrar;
+                gap: 10px;
+
+                * {
+                    border-radius: 5px;
+                    width: 45%;
+                    height: 35px;
+                }
+
+                .btn-cancelar {
+                    cursor: pointer;
+                    @extend %centrar;
+                    background-color: #fff;
+                    color: #000000;
+
+                    &:hover {
+                        border: 1px solid #2e2e2e;
+                    }
+                }
+
+                .btn-pagar {
+                    background-color: #009ee3;
+                    color: #fff;
+
+                    &:hover {
+                        background-color: #fff;
+                        color: #009ee3;
+                        border: 1px solid #009ee3;
+                    }
+                }
+            }
+        }
+        .tipo-de-entrada{
+            width: 50%;
+            
+            @extend %estyleVipCard;
+        }
+    }
+}
+    /*bootstrap styles contains*/
+    .col {
+        gap: 5px;
+        border: 1px solid var(--color-principal);
+    }
+
+    /*Tickets*/
+    .box {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        width: 1280px;
+        height: 620px;
+        background-image: linear-gradient(40deg, rgb(202, 87, 174), rgb(80, 7, 7));
+        padding: 20px;
+    }
+
+
+
+    @media (max-width: 620px) {
+        .contenedor-secundario-entrada {
+            width: 100%;
+        }
+        .container {
+            width: 100%;
+        }
+    }

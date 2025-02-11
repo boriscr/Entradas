@@ -32,7 +32,7 @@
         <div class="box-sin-eventos">
             <img src="https://68.media.tumblr.com/2bcd5f1584814fb90fb001cf5519a27f/tumblr_oqqshj6MUC1vjxr9zo1_500.gif"
                 alt="">
-            <p>¡Ups! No hay eventos disponibles en este momento.</p>
+            <p>¡Ups! No hay entradas disponibles en este momento.</p>
             <p>Por favor, vuelva más tarde. ¡Gracias por su paciencia!</p>
         </div>
     @endif

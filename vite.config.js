@@ -10,6 +10,7 @@ export default defineConfig({
                 'resources/scss/layouts/form.scss',
                 'resources/scss/main.scss',
                 'resources/js/inputsFormCreate.js',
+                'resources/js/btnComprar.js',
                  'resources/js/app.js'],
             refresh: true,
         }),

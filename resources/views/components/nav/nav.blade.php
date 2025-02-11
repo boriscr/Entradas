@@ -10,10 +10,10 @@
             <a class="nav-link" aria-current="page" href="{{route('home')}}">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{route('evento.create')}}">Nuevo Evento</a>
+            <a class="nav-link" href="{{route('Admin.create')}}">Nuevo Evento</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{route('evento.index')}}">Entradas</a>
+            <a class="nav-link" href="{{route('User.index')}}">Comprar Entradas</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Disabled</a>

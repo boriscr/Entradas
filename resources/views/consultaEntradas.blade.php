@@ -47,10 +47,10 @@
         <div class="contenedor-general">
             <div class="contenedor-secundario-entrada {{ $boxTipoDeEntrada }}" id="contenedor-secundario-entrada">
                 <div class="nombre-de-entrada">
-                    <p>{{ $eventos->nombre }}</p>
+                    <h1>{{ $eventos->nombre }}</h1>
                 </div>
                 <div class="tipo-de-entrada">
-                    <p>{{ $eventos->tipo_de_entrada }}</p>
+                    <h2>{{ $eventos->tipo_de_entrada }}</h2>
                 </div>
                 <div class="section-col">
                     <div class="column">
@@ -113,11 +113,45 @@
                     </div>
                 </div>
                 <br>
-                <div class="box-link-comprar">
-                    <a class="btn-link centrar" href="#">COMPRAR AHORA</a>
+                
+                <div class="btn-comprar">
+                    <button id="btn-comprar-ahora">COMPRAR AHORA</button>
                 </div>
                 <br>
             </div>
         </div>
     @endif
+
+<div class="container" id="container-pago">
+        <div class="containerElementos">
+
+            <h2 class="title-comprar">Comprar Ahora</h2>
+            <form method="post">
+                @csrf
+                <label for="Nombres">Nombres</label>
+                <input type="text" name="nombres" id="nombres" placeholder="Ejemplo: Juan Luis...">
+                <label for="apellido">Apellido</label>
+                <input type="text" name="apellido" id="apellido" placeholder="Ejemplo: Perez">
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" placeholder="Ejemplo: email@email.com">
+                <label for="cantidad">Cantidad de entradas</label>
+                <input type="number" name="cantidad" id="cantidad" value="1">
+                @if($eventos->cupon == true)
+                    <label for="cupon">Cupon</label>
+                    <input type="text" name="cupon" id="cupon" placeholder="¿Tienes un cupón? Ingrésalo aquí">
+                @endif
+
+                <div class="box-btn-cancelar-y-compar">
+                    <div class="btn-cancelar" id="btn-cancelar">Cancelar</div>
+                    <button class="btn-pagar" id="btn-pagar" type="submit">Pagar</button>
+                </div>
+            </form>
+            <div class="tipo-de-entrada">
+                <p>{{ $eventos->tipo_de_entrada }}</p>
+            </div>
+    </div>
+</div>
+
+
+
 </x-body.body>

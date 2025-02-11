@@ -18,7 +18,7 @@
         href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&family=Unica+One&display=swap"
         rel="stylesheet">
     <!--estilos-->
-    @vite(['resources/scss/config/reset.scss', 'resources/scss/layouts/button.scss', 'resources/scss/layouts/form.scss', 'resources/scss/main.scss','resources/js/inputsFormCreate.js',])
+    @vite(['resources/scss/config/reset.scss', 'resources/scss/layouts/button.scss', 'resources/scss/layouts/form.scss', 'resources/scss/main.scss','resources/js/inputsFormCreate.js','resources/js/btnComprar.js'])
     <title>Title</title>
 </head>
 
