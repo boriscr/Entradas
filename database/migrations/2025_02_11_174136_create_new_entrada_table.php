@@ -11,24 +11,24 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('new_eventos', function (Blueprint $table) {
+        Schema::create('new_entradas', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('id_evento')->constrained('new_eventos')->cascadeOnDelete();
             //Columna1: Nombre, Descripción, Precio, Cantidad
-            $table->string('nombre');
-            $table->string('tipo_de_evento');
-            $table->string('descripcion_corta');
+            $table->string('tipo_de_entrada');
             $table->text('descripcion');
-            $table->string('lugar');
+            $table->decimal('precio', 8, 2);
+            $table->integer('cantidad');
             //Columna2: Lugar
-            $table->dateTime('fecha_de_inicio');
-            $table->string('hora_de_inicio');
-            $table->dateTime('fecha_a_finalizar');
-            $table->string('hora_a_finalizar');
+            $table->decimal('porcentaje_de_descuento',5,2)->nullable();
+            $table->decimal('precio_final')->nullable();
+            $table->string('cupon')->nullable();
+            $table->integer('cantidad_minima_de_entradas')->nullable();
+            $table->integer('cantidad_maxima_de_entradas')->nullable();
             //Columna3: Configuracion extra
-            $table->string('portadaImg');
-            $table->boolean('apt_todo_publico')->default(false);
-            $table->integer('edad_minima')->nullable();
-            $table->integer('edad_maxima')->nullable();
+            $table->integer('asientos')->nullable();
+            $table->string('ubicacion')->nullable();
+
             //Columna4: Vendidos, Recaudado, Activo
             $table->integer('vendidos')->default(0);
             $table->decimal('recaudado',10,2)->default(0);
@@ -43,6 +43,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('new_eventos');
+        Schema::dropIfExists('new_entradas');
     }
 };

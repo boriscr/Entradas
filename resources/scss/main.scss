@@ -1,6 +1,6 @@
 @use 'config/utils';
 
-//Alerta en el home- al eliminar eventos
+//Alerta en el home- al eliminar entradas
 %alertMensaje {
     @extend %centrar;
     height: 45px;
@@ -27,9 +27,258 @@
 }
 
 
+/*Index*/
+//seccion cards- eventos
+.containerEventoInfo {
+    width: 100%;
+    display: flex;
+    .row-contenedor{
+        flex-wrap: wrap;
+        width: 100%;
+        flex-direction: row;
+        @extend %centrar;
+        background-color: #000000;
+        .column-img {
+            overflow:hidden;
+            width: 400px;
+            @extend %centrar;
+            img{
+                object-fit:contain;
+                width: 500px;
+                height: 400px;
+
+            }
+        }
+        .info{
+            width: 400px;
+            .bi-calendar2-check-fill{
+                color: green;
+            }
+            .bi-geo-alt-fill, .bi-calendar-x-fill{
+                color: red;
+            }
+            .bi-alarm,.bi-cake2{
+                color: #FFFFAC;
+            }
+        }
+
+    }
+}
+
+
+
+
+.box-contenedor-evento {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    display: flex;
+
+    * {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+
+    }
+
+    .box-elementos {
+        border-radius: 10px;
+        background-color: #ffffff;
+        color: #000000;
+        width: 300px;
+
+        .box-img-portada {
+            position: relative;
+            overflow: hidden;
+            width: 100%;
+            height: 200px;
+            text-align: center;
+
+            img {
+                border-radius: 10px 10px 100px 100px;
+                width: 300px;
+                height: 200px;
+                object-fit: cover;
+            }
+
+            .box-fecha {
+                position: absolute;
+                right: 0px;
+                border: 1px solid orange;
+                border-radius: 100px;
+                width: 60px;
+                height: 60px;
+                background: linear-gradient(30deg, rgb(191, 0, 255), rgb(75, 0, 0));
+                color: #fff;
+                font-weight: bold;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+        }
+
+        .style-contenedor-general {
+            padding: 5px 5px 0px 5px;
+            width: 100%;
+
+            * {
+                word-wrap: break-word;
+                white-space: normal;
+
+            }
+
+            .nombre-de-entrada,
+            .tipo-de-evento {
+                text-align: center;
+            }
+
+            .tipo-de-evento {
+                color: #fff;
+                background-color: #2e2e2e;
+            }
+
+            .inicio-card {
+
+                .publicoY,
+                .publicoN {
+                    text-align: center;
+                }
+
+                .publicoY {
+                    background-color: #cdfeee;
+                    color: #00774f;
+                }
+
+                .publicoN {
+                    background-color: rgb(248, 207, 207);
+                    color: red;
+                }
+
+                * {
+                    display: inline;
+                }
+
+                .bi {
+                    color: red;
+                }
+            }
+
+            .box-comprar {
+                margin-top: 10px;
+                height: 40px;
+                background-color: #00774f;
+                border-radius: 100px 100px 10px 10px;
+                text-align: center;
+
+                a {
+                    border-radius: 100px 100px 10px 10px;
+                    height: 100%;
+                    color: #fff;
+
+                    &:hover {
+                        background-color: #03a56f;
+                        box-shadow: 0px 0px 5px 5px #03a56f7c;
+                    }
+                }
+            }
+        }
+    }
+
+    /*Btns Editar Eliminar entradas*/
+    .box-btn-edit-del {
+        //position: absolute;
+        width: 100%;
+        flex-direction: row;
+        @extend %centrar;
+
+        .btn {
+            @extend %buttonStyle;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 30%;
+            height: 40px;
+            margin: 2px;
+            color: #fff;
+
+        }
+
+        .btn-editar {
+            background-color: rgb(44, 202, 136);
+
+            &:hover {
+                @include utils.colorStyles(#03a56f, #ffffff, none);
+            }
+        }
+
+        .btn-finalizar {
+            background-color: rgb(250, 83, 83);
+
+            &:hover {
+                @include utils.colorStyles(#ff2e2e, #ffffff, none);
+            }
+        }
+
+        form {
+            width: 20%;
+            background-color: transparent;
+
+            button {
+                @extend %buttonStyle;
+                margin: 1px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                height: 40px;
+                background-color: #962631;
+
+                &:hover {
+                    @include utils.colorStyles(#b60101, #ffffff, #fff);
+                }
+
+                .bi {
+                    font-size: 20px;
+                }
+            }
+        }
+    }
+}
+
+
 /*Home*/
 //seccion cards- entradas
+.box-btn-new-entrada {
+    align-items: end;
+    @extend %centrar;
+    padding: 1px;
 
+    a {
+        flex-direction: row;
+        @extend %centrar;
+        border-radius: 10px;
+        height: 100%;
+        padding: 5px;
+        background-color: #019a67;
+        color: #000;
+
+        .bi {
+            color: #000;
+        }
+
+        &:hover {
+            background-color: #02db93;
+            color: #014d34;
+
+            .bi {
+                color: #fff;
+            }
+        }
+    }
+}
 
 .box-contenedor {
     display: flex;
@@ -58,6 +307,10 @@
             * {
                 justify-content: space-between;
                 width: 100%;
+                word-wrap: break-word;
+                /* Hace que las palabras largas se dividan en varias líneas */
+                white-space: normal;
+                /* Permite que el texto envuelva al llegar al borde del contenedor */
             }
 
             .titulo-card {
@@ -124,7 +377,7 @@
             }
         }
 
-        /*Btns Editar Eliminar Eventos*/
+        /*Btns Editar Eliminar entradas*/
         .box-btn-edit-del {
             flex-direction: row;
             @extend %centrar;
@@ -221,8 +474,8 @@
 }
 
 
-/*Box sin eventos*/
-.box-sin-eventos {
+/*Box sin entradas*/
+.box-sin-entradas {
     @extend %centrar;
     flex-direction: column;
     border-radius: 10px;
@@ -246,8 +499,8 @@
     }
 }
 
-.evento-contenedor-vip:hover,
-.evento-contenedor-preferencial:hover {
+.entrada-contenedor-vip:hover,
+.entrada-contenedor-preferencial:hover {
     transform: scale(1.05);
 }
 
@@ -296,14 +549,14 @@
     }
 }
 
-.evento-contenedor-vip {
+.entrada-contenedor-vip {
     @extend %estyleVipCard;
     background: radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%, transparent 80%),
         radial-gradient(ellipse farthest-corner at left top, #faddb7 0%, #FFFFAC 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%);
     background-size: 150% 150%;
 }
 
-.evento-contenedor-preferencial {
+.entrada-contenedor-preferencial {
     @extend %estyleVipCard;
     background: radial-gradient(ellipse farthest-corner at right bottom, #2f4f4f 0%, #4f4f4f 25%, #696969 50%, #a9a9a9 75%, transparent 100%),
         radial-gradient(ellipse farthest-corner at left top, #2e2e2e 0%, #3c3c3c 25%, #505050 50%, #696969 75%, #808080 100%);
@@ -311,50 +564,50 @@
 }
 
 
-.evento-contenedor-primera-fila {
+.entrada-contenedor-primera-fila {
     background: radial-gradient(ellipse farthest-corner at right bottom, #A9FBCB 0%, #34D399 30%, #059669 60%, transparent 100%);
 }
 
-.evento-contenedor-platea-baja {
+.entrada-contenedor-platea-baja {
     background: radial-gradient(ellipse farthest-corner at right bottom, #f8a765 0%, #fa8e5c 30%, #fa3d2c 60%, transparent 100%);
 }
 
-.evento-contenedor-platea-alta {
+.entrada-contenedor-platea-alta {
     background: radial-gradient(ellipse farthest-corner at right bottom, #6fb4f8 0%, #5c97fc 30%, #3d6dd6 60%, transparent 100%);
 }
 
-.evento-contenedor-anticipadas {
+.entrada-contenedor-anticipadas {
     background: radial-gradient(ellipse farthest-corner at right bottom, #FFA500 0%, #FF8C00 8%, #FF7F50 30%, #FF6347 40%, transparent 80%),
         radial-gradient(ellipse farthest-corner at left top, #FFE5B4 0%, #FFDAB9 8%, #FFB74D 25%, #FF8C42 62.5%, #FF8C42 100%);
 }
 
-.evento-contenedor-especial {
+.entrada-contenedor-especial {
     background: radial-gradient(ellipse farthest-corner at right bottom, #FFB6C1 0%, #FF69B4 30%, #FF1493 60%, transparent 100%);
 }
 
-.evento-contenedor-tribuna {
+.entrada-contenedor-tribuna {
     background: radial-gradient(ellipse farthest-corner at right bottom, #E5C1FF 0%, #A76DFF 30%, #5B3FB3 60%, transparent 100%);
 }
 
-.evento-contenedor-asiento-ubicacion {
+.entrada-contenedor-asiento-ubicacion {
     background: radial-gradient(ellipse farthest-corner at right bottom, #f36be1 0%, #aa2da6 30%, #c42737 60%, transparent 100%);
 }
 
-.evento-contenedor-ubicacion {
+.entrada-contenedor-ubicacion {
     /*background: radial-gradient(ellipse farthest-corner at right bottom, #D4EDDA 0%, #A8E8B9 30%, #3BBF76 60%, transparent 100%);  */
     background: radial-gradient(ellipse farthest-corner at right bottom, #f782e7 0%, #ff5162 30%, #962631 60%, transparent 100%);
 }
 
-.evento-contenedor-asiento {
+.entrada-contenedor-asiento {
     background: radial-gradient(ellipse farthest-corner at right bottom, #fdb4f3 0%, #fd8d98 30%, #962631 60%, transparent 100%);
 }
 
-.evento-contenedor-general {
+.entrada-contenedor-general {
     background: radial-gradient(ellipse farthest-corner at right bottom, #3F80E1 0%, #5ed8f7 30%, #1a7b88 60%, transparent 100%);
 }
 
 
-.evento-contenedor-otro {
+.entrada-contenedor-otro {
     @include utils.colorStyles(var(--color-secundario), var(--color-terciario), none);
 
     H5 {
@@ -364,7 +617,7 @@
 
 
 
-////Vista->Consulta Entradas-----------------------------------------------------------------------
+////Vista->Consulta entradas-----------------------------------------------------------------------
 
 /////////////////////////////////////////////////////////////////////////////////////////////////
 /// View Consulta entradas
@@ -382,18 +635,22 @@
 
 }
 
-%tipo-de-entrada{
+%tipo-de-entrada {
     background-color: var(--color-terciario);
     color: orange;
     font-weight: bold;
 }
+
 .contenedor-secundario-entrada {
     @include utils.colorStyles(var(--color-terciario), var(--color-secundario), none);
 
-    .nombre-de-entrada,.tipo-de-entrada ,.titulo-H5{
+    .nombre-de-entrada,
+    .tipo-de-entrada,
+    .titulo-H5 {
         text-align: center;
     }
-    .tipo-de-entrada{
+
+    .tipo-de-entrada {
         @extend %tipo-de-entrada;
     }
 
@@ -439,6 +696,7 @@
     margin-top: 70px;
     width: 500px;
     display: none;
+
     .containerElementos {
         width: 95%;
         box-shadow: 0 0 10px 10px #ffffff69;
@@ -447,7 +705,9 @@
         background-color: var(--color-secundario);
         padding: 5px;
 
-        .title-comprar,form ,.tipo-de-entrada{
+        .title-comprar,
+        form,
+        .tipo-de-entrada {
             border-radius: 30px;
         }
 
@@ -462,15 +722,18 @@
             align-items: start;
             @extend %centrar;
             padding: 20px;
-            input:not(#cantidad){
+
+            input:not(#cantidad) {
                 padding: 5px;
                 width: 100%;
                 text-align: start;
                 font-size: 17px;
             }
-            #cantidad{
+
+            #cantidad {
                 width: 100%;
             }
+
             .box-btn-cancelar-y-compar {
                 margin-top: 20px;
                 width: 100%;
@@ -507,35 +770,38 @@
                 }
             }
         }
-        .tipo-de-entrada{
+
+        .tipo-de-entrada {
             width: 50%;
-            
+
             @extend %estyleVipCard;
         }
     }
 }
-    /*bootstrap styles contains*/
-    .col {
-        gap: 5px;
-        border: 1px solid var(--color-principal);
+
+/*bootstrap styles contains*/
+.col {
+    gap: 5px;
+    border: 1px solid var(--color-principal);
+}
+
+/*Tickets*/
+.box {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    width: 1280px;
+    height: 620px;
+    background-image: linear-gradient(40deg, rgb(202, 87, 174), rgb(80, 7, 7));
+    padding: 20px;
+}
+
+
+
+@media (max-width: 620px) {
+    .contenedor-secundario-entrada {
+        width: 100%;
     }
 
-    /*Tickets*/
-    .box {
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
-        width: 1280px;
-        height: 620px;
-        background-image: linear-gradient(40deg, rgb(202, 87, 174), rgb(80, 7, 7));
-        padding: 20px;
+    .container {
+        width: 100%;
     }
-
-
-
-    @media (max-width: 620px) {
-        .contenedor-secundario-entrada {
-            width: 100%;
-        }
-        .container {
-            width: 100%;
-        }
-    }
+}

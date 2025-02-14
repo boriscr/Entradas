@@ -1,4 +1,4 @@
-<x-body.body>
+<x-body.body :title="'Eventos'" :meta_descripcion="'Compra tus entradas para los mejores eventos en línea. Encuentra conciertos, obras de teatro, festivales y mucho más con nuestras promociones exclusivas y un proceso de compra fácil y seguro. ¡No te pierdas los eventos más esperados!'">
     <x-nav.nav />
     @if (session('eliminadoMensaje'))
         <div class="containerMensajeAlert">
@@ -15,24 +15,16 @@
     @endif
 
     @if (isset($eventos))
-            <?php
-            $tipos = ['VIP', 'Preferencial', 'Primera fila', 'Platea baja', 'Platea alta', 'Anticipadas', 'Especial', 'Tribuna', 'Asiento y ubicacion', 'Ubicacion', 'Asiento', 'General', 'Otro'];
-            ?>
-            <div class="box-contenedor">
-                @foreach ($tipos as $tipo)
-                    @foreach ($eventos as $value)
-                        @if ($value->tipo_de_entrada == $tipo)
-                                <x-cardEventos.card-evento :value="$value" />
-                        @endif
-                    @endforeach
-                @endforeach
-            </div>
+        <div class="box-contenedor-evento">
+            @foreach ($eventos as $eventos)
+                <x-card.card-evento :eventos="$eventos" />
+            @endforeach
         </div>
     @else
-        <div class="box-sin-eventos">
+        <div class="box-sin-entradas">
             <img src="https://68.media.tumblr.com/2bcd5f1584814fb90fb001cf5519a27f/tumblr_oqqshj6MUC1vjxr9zo1_500.gif"
                 alt="">
-            <p>¡Ups! No hay entradas disponibles en este momento.</p>
+            <p>¡Ups! No hay eventos disponibles en este momento.</p>
             <p>Por favor, vuelva más tarde. ¡Gracias por su paciencia!</p>
         </div>
     @endif

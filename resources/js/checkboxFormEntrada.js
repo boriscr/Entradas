@@ -1,85 +1,12 @@
 /*Col 1 descripcion corta */
-document.addEventListener('DOMContentLoaded', function () {
-    function validateCheckboxes() {
-        const publicoCheck = document.getElementById('publico_check');
-        const publicoContainer = document.getElementById('box-publico-check');
-        publicoContainer.style.display = publicoCheck.checked ? 'none' : 'flex';
 
-        const descuento= document.getElementById('descuento_check');
-        document.getElementById('box-descuento-check').style.display= descuento.checked?'flex':'none';
-        const cupon=document.getElementById('descuento_cupon_check');
-        document.getElementById('box-cupon-descuento').style.display=cupon.checked?'flex':'none';
-        const cantidad=document.getElementById('descuento_por_cantidad_check');
-        document.getElementById('box-cantidad-entradas').style.display=cantidad.checked?'flex':'none';
-        const asiento=document.getElementById('asiento_check');
-        document.getElementById('mensaje').style.display=asiento.checked?'flex':'none';
-        const ubicacion=document.getElementById('ubicacion_check');
-        document.getElementById('box-ubicacion').style.display=ubicacion.checked?'flex':'none';
-        const asientoUbicacion=document.getElementById('asiento_ubicacion_check');
-        document.getElementById('mensaje').style.display=asientoUbicacion.checked?'flex':'none';
-        document.getElementById('box-asiento-ubicacion').style.display=asientoUbicacion.checked?'flex':'none';
-
-    }
-
-    // Validar checkboxes al cargar la página
-    validateCheckboxes();
-});
+////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-const descripcionMensajeError = document.getElementById('descripcion-mensaje-error');
-document.getElementById('descripcionCorta').addEventListener('input', function () {
-    var input = document.getElementById('descripcionCorta').value;
-    var contador = input.length;
-    if (contador >= 70) {
-        descripcionMensajeError.style.display = 'flex';
-        descripcionMensajeError.textContent = 'El campo descripcion corta no debe ser mayor que 70 caracteres.';
-    } else {
-        descripcionMensajeError.style.display = 'none';
-        descripcionMensajeError.innerHTML = '';
-    }
-});
 
-/*Columna 3 */
-const publicoCheck = document.getElementById('publico_check');
-const boxPublico = document.getElementById('box-publico-check');
-const edadMin = document.getElementById('edad_publico_min');
-const edadMinMensajeError = document.getElementById('edad-minima-mensaje-error');
-const edadMax = document.getElementById('edad_publico_max');
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-publicoCheck.addEventListener('change', function () {
-    if (publicoCheck.checked) {
-        boxPublico.style.display = 'none';
-    } else {
-        boxPublico.style.display = 'flex';
-        /*Input edades maximas y minimas */
-        edadMin.addEventListener('input', function () {
-            if (parseInt(this.value) > parseInt(edadMax.value)) {
-                edadMinMensajeError.style.display = 'flex';
-                edadMinMensajeError.textContent = 'El valor mínimo no puede superar al máximo.'
-            } else {
-                edadMaxMensajeError.style.display = 'none';
-                edadMaxMensajeError.innerHTML = ''
-                edadMinMensajeError.style.display = 'none';
-                edadMinMensajeError.innerHTML = ''
-            }
-            //cantidadMinMax(edadMin, edadMinMensajeError, edadMax, edadMaxMensajeError)
-        })
-        const edadMaxMensajeError = document.getElementById('edad-maxima-mensaje-error');
-        edadMax.addEventListener('input', function () {
-            if (parseInt(this.value) < parseInt(edadMin.value)) {
-                edadMaxMensajeError.style.display = 'flex';
-                edadMaxMensajeError.textContent = 'El valor máximo no puede ser inferior al valor mínimo.'
-            } else {
-                edadMaxMensajeError.style.display = 'none';
-                edadMaxMensajeError.innerHTML = ''
-                edadMinMensajeError.style.display = 'none';
-                edadMinMensajeError.innerHTML = ''
-            }
-            //cantidadMinMax(edadMin, edadMinMensajeError, edadMax, edadMaxMensajeError)
-        })
-    }
-})
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////
 //2 Box descuentos----------------------------------------------------------------------------------
 
 /*Descuento */
@@ -105,29 +32,29 @@ descuentoCheck.addEventListener('change', function () {
             if (descuentoCantidadCheck.checked) {
                 document.getElementById('box-cantidad-entradas').style.display = "flex";
                 const cantidad_entradas_min = document.getElementById('cantidad_entradas_min');
-                const cantidadEntradasMinError = document.getElementById('cantidad-entradas-min-error');
+                const cantidadentradasMinError = document.getElementById('cantidad-entradas-min-error');
                 const cantidad_entradas_max = document.getElementById('cantidad_entradas_max');
-                const cantidadEntradasMaxError = document.getElementById('cantidad-entradas-max-error');
+                const cantidadentradasMaxError = document.getElementById('cantidad-entradas-max-error');
                 cantidad_entradas_min.addEventListener('input', function () {
                     const descuentoPorcentaje = document.getElementById('porcentaje_descuento').value;
                     if (parseInt(this.value) > 0 && parseInt(this.value) < parseInt(cantidad_entradas_max.value)) {
-                        cantidadEntradasMinError.style.display = 'none';
-                        cantidadEntradasMinError.innerHTML = '';
-                        cantidadEntradasMaxError.style.display = 'none';
-                        cantidadEntradasMaxError.innerHTML = '';
+                        cantidadentradasMinError.style.display = 'none';
+                        cantidadentradasMinError.innerHTML = '';
+                        cantidadentradasMaxError.style.display = 'none';
+                        cantidadentradasMaxError.innerHTML = '';
                         cantidadMensaje.style.display = 'flex';
                         cantidadMensaje.textContent = 'Por la compra de ' + cantidad_entradas_min.value + ' entradas o más, se realizará el descuento del ' + descuentoPorcentaje + '%';
                     } else if (parseInt(this.value) == parseInt(cantidad_entradas_max.value)) {
-                        cantidadEntradasMinError.style.display = 'none';
-                        cantidadEntradasMinError.innerHTML = '';
-                        cantidadEntradasMaxError.style.display = 'none';
-                        cantidadEntradasMaxError.innerHTML = '';
+                        cantidadentradasMinError.style.display = 'none';
+                        cantidadentradasMinError.innerHTML = '';
+                        cantidadentradasMaxError.style.display = 'none';
+                        cantidadentradasMaxError.innerHTML = '';
                         cantidadMensaje.style.display = 'flex';
                         cantidadMensaje.textContent = 'Por la compra de ' + cantidad_entradas_min.value + ' entradas, se realizará el descuento del ' + descuentoPorcentaje + '%';
 
                     } else {
-                        cantidadEntradasMinError.style.display = 'flex';
-                        cantidadEntradasMinError.textContent = 'El valor mínimo no puede superar al máximo.'
+                        cantidadentradasMinError.style.display = 'flex';
+                        cantidadentradasMinError.textContent = 'El valor mínimo no puede superar al máximo.'
                         cantidadMensaje.style.display = 'none';
                         cantidadMensaje.textContent = '';
                     }
@@ -136,26 +63,26 @@ descuentoCheck.addEventListener('change', function () {
                 cantidad_entradas_max.addEventListener('input', function () {
                     const descuentoPorcentaje = document.getElementById('porcentaje_descuento').value;
                     if (parseInt(this.value) > 0 && parseInt(this.value) > parseInt(cantidad_entradas_min.value)) {
-                        cantidadEntradasMaxError.style.display = 'none';
-                        cantidadEntradasMaxError.innerHTML = '';
-                        cantidadEntradasMinError.style.display = 'none';
-                        cantidadEntradasMinError.innerHTML = '';
+                        cantidadentradasMaxError.style.display = 'none';
+                        cantidadentradasMaxError.innerHTML = '';
+                        cantidadentradasMinError.style.display = 'none';
+                        cantidadentradasMinError.innerHTML = '';
                         cantidadMensaje.style.display = 'flex';
                         cantidadMensaje.textContent = 'Por la compra de ' + cantidad_entradas_min.value + ' entradas o más, se realizará el descuento del ' + descuentoPorcentaje + '%';
                     } else if (parseInt(this.value) == parseInt(cantidad_entradas_min.value)) {
-                        cantidadEntradasMaxError.style.display = 'none';
-                        cantidadEntradasMaxError.innerHTML = ''
-                        cantidadEntradasMinError.style.display = 'none';
-                        cantidadEntradasMinError.innerHTML = '';
+                        cantidadentradasMaxError.style.display = 'none';
+                        cantidadentradasMaxError.innerHTML = ''
+                        cantidadentradasMinError.style.display = 'none';
+                        cantidadentradasMinError.innerHTML = '';
                         cantidadMensaje.style.display = 'flex';
                         cantidadMensaje.textContent = 'Por la compra de ' + cantidad_entradas_min.value + ' entradas, se realizará el descuento del ' + descuentoPorcentaje + '%';
                     }
                     else {
-                        cantidadEntradasMaxError.style.display = 'flex';
-                        cantidadEntradasMaxError.textContent = 'El valor máximo no puede ser inferior al valor mínimo.';
+                        cantidadentradasMaxError.style.display = 'flex';
+                        cantidadentradasMaxError.textContent = 'El valor máximo no puede ser inferior al valor mínimo.';
 
-                        cantidadEntradasMinError.style.display = 'none';
-                        cantidadEntradasMinError.style.innerHTML = '';
+                        cantidadentradasMinError.style.display = 'none';
+                        cantidadentradasMinError.style.innerHTML = '';
                         cantidadMensaje.style.display = 'none';
                         cantidadMensaje.textContent = '';
                     }

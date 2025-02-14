@@ -84,7 +84,7 @@
     <div class="box" id="box">
         <div class="contenidoBox">
             <div class="nameTitle">
-                <h1>Gran evento Anual-Solidario</h1>
+                <h1>Gran entrada Anual-Solidario</h1>
             </div>
             <?php
             $count = 90;

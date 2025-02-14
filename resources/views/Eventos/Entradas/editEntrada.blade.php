@@ -1,9 +1,10 @@
 <x-body.body>
     <x-nav.nav />
     <div class="formularioBox">
-        <x-form.formEvento
+        <x-form.formentrada
+        :ruta="route('AdminEntradas.edit')"
         :publico_check="$publico_check"
-        :nombreDelEvento="$edit->nombre"
+        :nombreDelentrada="$edit->nombre"
         :descripcionCorta="$edit->descripcion_corta"
         :descripcion="$edit->descripcion"
         :precio="$edit->precio"
@@ -17,10 +18,11 @@
         :edadPublicoMax="$edit->edadPublicoMax"
         :porcentajeDescuento="$edit->porcentaje_descuento"
         :cuponDescuento="$edit->cupon_descuento"
-        :cantidadEntradasMin="$edit->cantidad_entradas_min"
-        :cantidadEntradasMax="$edit->cantidad_entradas_max"
+        :cantidadentradasMin="$edit->cantidad_entradas_min"
+        :cantidadentradasMax="$edit->cantidad_entradas_max"
         :ubicacionUno="$edit->ubicacion_uno"
         :ubicacionDos="$edit->ubicacion_dos"
+        :btnSubmitName="'Actualizar'"
         />
     </div>
     <script src="/js/checksFormCreate.js"></script>

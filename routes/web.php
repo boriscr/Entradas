@@ -2,14 +2,16 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EntradaAdminController;
 use App\Http\Controllers\EventoAdminController;
+
 use App\Http\Controllers\EventoUsuarioController;
 
 Route::get('/', [EventoAdminController::class,'index'])->name('home');
-Route::resource('Admin', EventoAdminController::class);
-Route::get('Edit/{id}/', [EventoAdminController::class,'edit'])->name('edit');
-Route::delete('Delete/{id}/', [EventoAdminController::class,'destroy'])->name('delete');
-Route::get('Consulta/{id}/', [EventoAdminController::class,'indexEntradas'])->name('indexEntradas');
+Route::resource('AdminEvento',EventoAdminController::class);
+
+Route::resource('AdminEntradas', EntradaAdminController::class);
+Route::get('Consulta/{id}/', [EntradaAdminController::class,'indexentradas'])->name('indexentradas');
 Route::resource('User',EventoUsuarioController::class);
 
 /*

@@ -56,6 +56,15 @@
     * {
         width: 100%;
     }
+    .contenedorImg{
+        overflow: hidden;
+        width: 100%;
+        img{
+            object-fit: cover;
+            width: 300px;
+            height: 200px;
+        }
+    }
 }
 
 .col{
@@ -69,7 +78,7 @@
 .box-cupon-descuento,
 .box-ubicacion,
 .box-asiento-ubicacion {
-    display: flex;
+    display: none;
     justify-content: center;
     flex-direction: column;
 }
@@ -95,4 +104,27 @@
     padding: 3px;
     font-size: 12px;
 }
+//Input type File Entrada//////////////////////////////////////////////
 
+
+.file-input-wrapper {
+    overflow: hidden;
+    display: inline-block;
+}
+
+.file-input-btn {
+    border: 2px solid #b1b0b0;
+    color: var(--color-secundario);
+    background-color: var(--color-principal);
+    padding: 8px 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.file-input {
+    *{
+        display: flex;
+        flex-direction: column;
+
+    }
+}

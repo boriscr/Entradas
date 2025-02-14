@@ -146,7 +146,7 @@
                 </div>
                 <div class="ticket-footer">
                     <div class="ticket-header__title">
-                        <h2>Titulo DEL GRAN EVENTO</h2>
+                        <h2>Titulo DEL GRAN entrada</h2>
                     </div>
                     <div class="ticket-header__date_lite">
                         <h3>28022001</h3>
