@@ -1,4 +1,4 @@
-document.getElementById('btn-comprar-ahora').addEventListener('click', function(){
+document.getElementById('link-comprar').addEventListener('click', function(){
     document.getElementById('container-pago').style.display='flex';
 })
 

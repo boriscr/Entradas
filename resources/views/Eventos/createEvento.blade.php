@@ -1,10 +1,19 @@
 <x-body.body>
     <x-nav.nav/>
+
+@if (session('good'))
+    <script>
+        document.addEventListener('DOMContentLoaded', function(){
+            Swal.fire(@json(session('good')))
+        })
+    </script>    
+@endif
+
     <div class="formularioBox">
     <x-form.formEvento
     :ruta="route('AdminEvento.store')"
     :tipo="'Fiesta privada'"
-    :publicoCheck="$publico_check"
+    :publicoCheck="'checked'"
     :descripcion="old('descripcion')"
     :descripcionCorta="old('descripcion_corta')"
     :nombreDelEvento="old('nombre_del_evento')"

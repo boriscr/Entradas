@@ -31,12 +31,16 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'dni'=>['required','digits:8','unique:'.User::class],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'password' => ['required', 'confirmed','regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/', Rules\Password::defaults()],
+        ], [
+            'password.regex' => 'La contraseña debe contener al menos una mayúscula, un número y un carácter especial.',
         ]);
 
         $user = User::create([
             'name' => $request->name,
+            'dni'=>$request->dni,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
@@ -45,6 +49,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('dashboard', absolute: false));
+        return redirect(route('home', absolute: false));
     }
 }

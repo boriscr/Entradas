@@ -1,19 +1,18 @@
 <x-body.body :title="'Eventos'" :meta_descripcion="'Compra tus entradas para los mejores eventos en línea. Encuentra conciertos, obras de teatro, festivales y mucho más con nuestras promociones exclusivas y un proceso de compra fácil y seguro. ¡No te pierdas los eventos más esperados!'">
     <x-nav.nav />
-    @if (session('eliminadoMensaje'))
-        <div class="containerMensajeAlert">
-            <div class="mensajeAlerta">
-                {{ session('eliminadoMensaje') }}
-            </div>
-        </div>
-    @elseif(session('eliminadoMensajeError'))
-        <div class="containerMensajeAlert">
-            <div class="mensajeAlertaError">
-                {{ session('eliminadoMensajeError') }}
-            </div>
-        </div>
-    @endif
-
+@if(session('good'))
+    <script>
+        document.addEventListener('DOMContentLoaded',function(){
+            Swal.fire(@json(session('good')))
+        })
+    </script>
+@elseif(session('error'))
+    <script>
+        document.addEventListener('DOMContentLoaded',function(){
+            Swal.fire(@json(session('error')))
+        })
+    </script>
+@endif
     @if (isset($eventos))
         <div class="box-contenedor-evento">
             @foreach ($eventos as $eventos)
@@ -28,4 +27,5 @@
             <p>Por favor, vuelva más tarde. ¡Gracias por su paciencia!</p>
         </div>
     @endif
+    
 </x-body.body>

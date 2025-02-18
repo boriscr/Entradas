@@ -1,21 +1,24 @@
 <x-body.body :title="'Entradas'">
     <x-nav.nav />
-    @if (session('eliminadoMensaje'))
-        <div class="containerMensajeAlert">
-            <div class="mensajeAlerta">
-                {{ session('eliminadoMensaje') }}
-            </div>
-        </div>
-    @elseif(session('eliminadoMensajeError'))
-        <div class="containerMensajeAlert">
-            <div class="mensajeAlertaError">
-                {{ session('eliminadoMensajeError') }}
-            </div>
-        </div>
+
+    @if (session('good'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire(@json(session('good')))
+            })
+        </script>
+    @elseif(session('error'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal.fire(@json(session('error')))
+            })
+        </script>
     @endif
-    <div class="box-btn-new-entrada">
-        <a href="{{ route('AdminEntradas.create') }}"><i class="bi bi-plus-lg"></i>Crear nueva entrada</a>
-    </div>
+    @auth
+        <div class="box-btn-new-entrada">
+            <a href="{{ route('AdminEntradas.create') }}"><i class="bi bi-plus-lg"></i>Crear nueva entrada</a>
+        </div>
+    @endauth
 
     <div class="containerEventoInfo">
         <div class="row-contenedor">
@@ -64,11 +67,50 @@
         $tipos = ['VIP', 'Preferencial', 'Primera fila', 'Platea baja', 'Platea alta', 'Anticipadas', 'Especial', 'Tribuna', 'Asiento y ubicacion', 'Ubicacion', 'Asiento', 'General', 'Otro'];
         ?>
         <div class="box-contenedor">
-
             @foreach ($tipos as $tipo)
                 @foreach ($entradasRelacionadas as $value)
                     @if ($value->tipo_de_entrada == $tipo)
                         <x-card.card-entrada :value="$value" />
+                        @if (Route::has('login'))
+                            @auth
+                                <div class="container-pago" id="container-pago">
+                                    <div class="containerElementos">
+                                        <h2 class="title-comprar">Comprar Ahora</h2>
+                                        <form method="post">
+                                            @csrf
+                                            {{ $value->tipo_de_entrada }}
+                                            <br>
+                                            {{ $value->descripcion }}
+                                            {{ $value->tipo_de_entrada }}
+                                            <label for="Nombres">Nombres</label>
+                                            <input type="text" name="nombres" id="nombres"
+                                                placeholder="Ejemplo: Juan Luis..." value="{{ auth()->user()->name }}">
+                                            <label for="email">Email</label>
+                                            <input type="email" name="email" id="email"
+                                                placeholder="Ejemplo: email@email.com" value="{{ auth()->user()->email }}">
+                                            <label for="cantidad">Cantidad de entradas</label>
+                                            <input type="number" name="cantidad" id="cantidad" value="1">
+                                            @if ($value->cupon == true)
+                                                <label for="cupon">Cupon</label>
+                                                <input type="text" name="cupon" id="cupon"
+                                                    placeholder="¿Tienes un cupón? Ingrésalo aquí">
+                                            @endif
+
+                                            <div class="box-btn-cancelar-y-compar">
+                                                <div class="btn-cancelar" id="btn-cancelar">Cancelar</div>
+                                                <button class="btn-pagar" id="btn-pagar" type="submit">Pagar</button>
+                                            </div>
+                                        </form>
+                                        <div class="tipo-de-entrada">
+                                            <p>{{ $value->tipo_de_entrada }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endauth
+                            <div class="container-pago" id="container-pago" style="background: red">
+                                <h1>Inicie session para continuar.</h1>
+                            </div>
+                        @endif
                     @endif
                 @endforeach
             @endforeach

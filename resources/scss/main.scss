@@ -1,30 +1,29 @@
 @use 'config/utils';
+//Nav
+.collapse {
+    display: flex;
+    justify-content: space-between;
+    .ulLog{
+        flex-direction: row;
+        gap: 10px;
+        *{
+            @extend %centrar;
+            background-color: #fff;
+            color: #000;
+            width: 100px;
+            height: 30px;
+            border-radius: 10px;
+        }
+        form{
+            background-color: transparent;
+        }
+    }
+}
+
+
 
 //Alerta en el home- al eliminar entradas
-%alertMensaje {
-    @extend %centrar;
-    height: 45px;
-    border-radius: 10px;
-    font-size: 16px;
-    width: 300px;
-    right: 100%;
-    text-align: center;
-}
 
-.containerMensajeAlert {
-    align-items: end;
-    @extend %centrar;
-
-    .mensajeAlerta {
-        @extend %alertMensaje;
-        @include utils.colorStyles(rgb(144, 252, 168), green, green);
-    }
-
-    .mensajeAlertaError {
-        @extend %alertMensaje;
-        @include utils.colorStyles(rgb(252, 144, 144), rgb(170, 11, 11), rgb(170, 11, 11));
-    }
-}
 
 
 /*Index*/
@@ -32,6 +31,7 @@
 .containerEventoInfo {
     width: 100%;
     display: flex;
+
     .row-contenedor{
         flex-wrap: wrap;
         width: 100%;
@@ -73,8 +73,8 @@
     justify-content: center;
     flex-wrap: wrap;
     gap: 10px;
-
     display: flex;
+
 
     * {
         display: flex;
@@ -433,7 +433,7 @@
                 }
             }
         }
-
+//Btn home show entradas
         .box-info-comprar {
             * {
                 @extend %centrar;
@@ -447,7 +447,7 @@
             a {
                 margin-top: 3px;
                 @extend %buttonStyle;
-                @include utils.colorStyles(var(--color-principal), var(--color-secundario), var(--color-terciario));
+                @include utils.colorStyles(#000, #fff, #fff);
                 text-decoration: none;
 
                 &:hover {
@@ -689,11 +689,13 @@
     }
 }
 
-.container {
+//Show Entradas --Pop Up pagar------------------------------------------------------------------
+.container-pago {
     @extend %centrar;
-    position: relative;
+    position: absolute;
+    z-index: 5;
     height: 100%;
-    margin-top: 70px;
+    margin-top: -500px;
     width: 500px;
     display: none;
 
@@ -797,11 +799,22 @@
 
 
 @media (max-width: 620px) {
+    //nav btns inicio- registro y logout
+    .collapse{
+        flex-direction: column;
+        align-items: start;
+        .ulLog{
+            width: 100%;
+            justify-content: center;
+            flex-direction: row;
+        }
+    }
+    //
     .contenedor-secundario-entrada {
         width: 100%;
     }
 
-    .container {
+    .container-pago {
         width: 100%;
     }
 }

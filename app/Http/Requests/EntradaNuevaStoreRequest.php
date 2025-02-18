@@ -23,10 +23,10 @@ class entradaNuevaStoreRequest extends FormRequest
     {
         return [
             'evento'=>'required',
-            'tipo_de_entrada'=> 'required|string|min:3|max:255',
+            'tipo_de_entrada'=> 'required|string|min:3',
             'descripcion' => 'required|string|min:5',
             'precio' => 'required|numeric|min:1|max:99999999',
-            'cantidad' => 'required|integer|min:1',
+            'cantidad' => 'required|integer|min:1|max:99999999',
         ];
     }
 }

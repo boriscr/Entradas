@@ -1,10 +1,16 @@
 <x-body.body :title="'Edit Evento'">
     <x-nav.nav />
+@if(session('good'))
+    <script>
+        document.addEventListener('DOMContentLoaded',function(){
+            Swal.fire(@json(session('good')))
+        })
+    </script>
+@endif
     <div class="formularioBox">
         <x-form.formEvento
         :ruta="route('AdminEvento.update',$evento->id)"
         :metodo=true
-        :publicoCheck="$evento->apt_todo_publico==true?'checked':''"
         :portadaImg="$evento->portadaImg"
         :tipo="$evento->tipo_de_evento"
         :nombreDelEvento="$evento->nombre"
@@ -17,10 +23,11 @@
         :horaInicio="$evento->hora_de_inicio"
         :fechaFin="\Carbon\Carbon::parse($evento->fecha_a_finalizar)->format('Y-m-d')"
         :horaFin="$evento->hora_a_finalizar"
-        :edadPublicoMin="$evento->edad_publico_min"
-        :edadPublicoMax="$evento->edad_publico_max"
+
+        :publicoCheck="$evento->apt_todo_publico==true?'checked':''"
+        :edadPublicoMin="$evento->edad_minima"
+        :edadPublicoMax="$evento->edad_maxima"
         :btnSubmitName="'Actualizar'"
         />
     </div>
-    <script src="/js/checksFormCreate.js"></script>
 </x-body.body>

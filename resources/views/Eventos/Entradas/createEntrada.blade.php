@@ -1,5 +1,14 @@
 <x-body.body>
     <x-nav.nav />
+
+    @if (session('good'))  
+    <script>  
+        document.addEventListener('DOMContentLoaded', function () {  
+            Swal.fire(@json(session('good')));  
+        });  
+    </script>  
+@endif
+
     <div class="formularioBox">
         <x-form.formentrada
         :eventoName="$evento"

@@ -23,7 +23,7 @@ class eventoNuevoStoreRequest extends FormRequest
     {
         return [
             'nombre_del_evento' => 'required|string|min:3|max:255',
-            'tipo_de_entrada' => 'required|string|min:3|max:255',
+            'tipo_de_evento' => 'required|string|min:3|max:255',
             'descripcion_corta' => 'required|string|min:3|max:83',
             'descripcion' => 'required|string|min:5',
             'lugar' => 'required|string|min:3|max:255',

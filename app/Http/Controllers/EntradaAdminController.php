@@ -101,8 +101,15 @@ class EntradaAdminController extends Controller
         $entrada->recaudado = 0;
         $entrada->activo = true;
         $entrada->save();
-        $entradas = NewEntrada::all();
-        return to_route('AdminEvento.show', compact('entradas'));
+        session()->flash('good',[
+            'title'=> "Creada!",
+            'text'=> "Nueva entrada creada!",
+            'icon'=> "success",
+        ]);
+        return back();
+    }
+    public function show(){
+        //
     }
 
     public function edit($id)
@@ -116,9 +123,19 @@ class EntradaAdminController extends Controller
         $del = NewEntrada::find($id);
         if ($del) {
             $del->delete();
-            return to_route('show')->with('eliminadoMensaje', 'entrada eliminado con éxito.');
+            session()->flash('good',[
+                'title'=>'Eliminado!',
+                'text'=>'Entrada eliminada correctamente.',
+                'icon'=>'success',
+            ]);
+            return back();
         }
-        return to_route('show')->with('eliminadoMensajeError', 'Error al eliminar éste entrada.');
+        session()->flash('error',[
+            'title'=>'Error!',
+            'text'=>'Error al eliminar ésta entrada.',
+            'icon'=>'error',
+        ]);
+        return back();
     }
 
 

@@ -41,66 +41,80 @@ class EventoAdminController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(EventoNuevoStoreRequest $request)
-    { {
-            $evento = new NewEvento();
-            //Columna1: Nombre, Descripción, Precio, Cantidad
-            $evento->nombre = $request->input('nombre_del_evento');
-            $evento->tipo_de_evento = $request->input('tipo_de_entrada');
-            $evento->descripcion_corta = $request->input('descripcion_corta');
-            $evento->descripcion = $request->input('descripcion');
-            $evento->lugar = $request->input('lugar');            //Columna2: Lugar
-
-            $evento->fecha_de_inicio = $request->input('fecha_de_inicio');
-            $evento->hora_de_inicio = $request->input('hora_de_inicio');
-            $evento->fecha_a_finalizar = $request->input('fecha_a_finalizar');
-            $evento->hora_a_finalizar = $request->input('hora_a_finalizar');
-
-            //Columna3: Finalizacion---------------------------------------------
-            //Edad del publico objetivo
-            //Apto para todo publico check
-            if ($request->has('publico_check')) {
-                $evento->apt_todo_publico = true;
-            } else {
+    {
+        $evento = new NewEvento();
+        // Columna1: Nombre, Descripción, Precio, Cantidad
+        $evento->nombre = $request->input('nombre_del_evento');
+        $evento->tipo_de_evento = $request->input('tipo_de_evento');
+        $evento->descripcion_corta = $request->input('descripcion_corta');
+        $evento->descripcion = $request->input('descripcion');
+        $evento->lugar = $request->input('lugar'); // Columna2: Lugar
+    
+        $evento->fecha_de_inicio = $request->input('fecha_de_inicio');
+        $evento->hora_de_inicio = $request->input('hora_de_inicio');
+        $evento->fecha_a_finalizar = $request->input('fecha_a_finalizar');
+        $evento->hora_a_finalizar = $request->input('hora_a_finalizar');
+    
+        // Columna3: Finalizacion
+        // Edad del publico objetivo
+        // Apto para todo publico check
+        if ($request->has('publico_check')) {
+            $evento->apt_todo_publico = true;
+        } else {
+            $request->validate([
+                'edad_publico_min' => 'required|numeric|min:1',
+            ]);
+            $evento->apt_todo_publico = false;
+            $evento->edad_minima = $request->input('edad_publico_min');
+            if (!$request->input('edad_publico_max') == null) {
                 $request->validate([
-                    'edad_publico_min' => 'required|numeric|min:1',
+                    'edad_publico_max' => 'numeric|min:2',
                 ]);
-                $evento->apt_todo_publico = false;
-                $evento->edad_minima = $request->input('edad_publico_min');
-                if (!$request->input('edad_publico_max')==null) {
-                    $request->validate([
-                        'edad_publico_max' => 'numeric|min:2',
-                    ]);
-                    $evento->edad_maxima = $request->input('edad_publico_max');
-                } else {
-                    $evento->edad_maxima = null;
-                }
+                $evento->edad_maxima = $request->input('edad_publico_max');
+            } else {
+                $evento->edad_maxima = null;
             }
-
-            //6/2 descuento porcentaje
-            //Imagen de portada
-            $evento->vendidos = 0;
-            $evento->recaudado = 0;
-            $evento->activo = true;
+        }
+    
+        // 6/2 descuento porcentaje
+        // Imagen de portada
+        $evento->vendidos = 0;
+        $evento->recaudado = 0;
+        $evento->activo = true;
+        $evento->portadaImg = '';
+    
+        // Procesar la imagen del input file
+        if ($request->hasFile('portada_image')) {
+            $image = $request->file('portada_image');
             // Obtener el ID del evento recién guardado
-            $id_evento = $evento->id;
-            $evento->portadaImg = '';
-            // Procesar la imagen del input file
             $evento->save();
-            if ($request->hasFile('portada_image')) {
-                $image = $request->file('portada_image');
-                // Primero, guarda el evento sin la imagen para obtener su ID
-                $id_evento = $evento->id;
-                $nombre_archivo = $id_evento . '.' . strtolower($image->getClientOriginalExtension());
-                $ruta = storage_path("app/public/eventosImg/" . $nombre_archivo);
-                $res = move_uploaded_file($image, $ruta);
+            $id_evento = $evento->id;
+            $nombre_archivo = $id_evento . '.' . strtolower($image->getClientOriginalExtension());
+            $ruta = storage_path("app/public/eventosImg/" . $nombre_archivo);
+            if (move_uploaded_file($image, $ruta)) {
                 // Guardar nuevamente el evento con la ruta de la imagen
                 $evento->portadaImg = $nombre_archivo;
+            } else {
+                session()->flash('error', [
+                    'title' => 'Error!',
+                    'text' => 'Error al subir la imagen.',
+                    'icon' => 'error',
+                ]);
+                return back();
             }
-            $evento->save();
-            $eventos = NewEvento::where('activo', true)->get();
-            return to_route('AdminEvento.index', compact('eventos'));
         }
+    
+        $evento->save();
+    
+        session()->flash('good', [
+            'title' => 'Creado',
+            'text' => 'Nuevo evento creado.',
+            'icon' => 'success',
+        ]);
+    
+        return back();
     }
+    
 
     /**
      * Display the specified resource.
@@ -129,7 +143,7 @@ class EventoAdminController extends Controller
     {
         $evento = NewEvento::findOrFail($id);
         $evento->nombre = $request->input('nombre_del_evento');
-        $evento->tipo_de_evento = $request->input('tipo_de_entrada');
+        $evento->tipo_de_evento = $request->input('tipo_de_evento');
         $evento->descripcion_corta = $request->input('descripcion_corta');
         $evento->descripcion = $request->input('descripcion');
         $evento->lugar = $request->input('lugar');
@@ -150,7 +164,12 @@ class EventoAdminController extends Controller
             $evento->portadaImg = $nombreImg;
             $evento->save();
         }
-        return to_route('AdminEvento.index');
+        session()->flash('good',[
+            'title'=>'Actualizado!',
+            'text'=>'Los datos del evento han sido actualizados.',
+            'icon'=>'success',
+        ]);
+        return back();
     }
 
     /**
@@ -164,7 +183,11 @@ class EventoAdminController extends Controller
             unlink($rutaImgPortada);
         }
         $evento->delete();
-
-        return to_route('AdminEvento.index');
+        session()->flash('good',[
+            'title'=>'Eliminado!',
+            'text'=>'Evento eliminado correctamente.',
+            'icon'=>'success',
+        ]);
+        return back();
     }
 }

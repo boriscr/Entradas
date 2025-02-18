@@ -9,8 +9,8 @@
         <div class="contenidoForm">
             <h3>Crear nuevo evento</h3>
             <hr>
-            <label for="tipo_de_entrada">Tipo de evento</label>
-            <select name="tipo_de_entrada" id="tipo_de_entrada">
+            <label for="tipo_de_evento">Tipo de evento</label>
+            <select name="tipo_de_evento" id="tipo_de_entrada">
                 <option value="Fiesta privada" {{ $tipo == 'Fiesta privada' ? 'selected' : '' }}>Fiesta privada</option>
                 <option value="Fiesta temática" {{ $tipo == 'Fiesta temática' ? 'selected' : '' }}>Fiesta temática
                 </option>
@@ -23,10 +23,10 @@
                 <option value="Otro" {{ $tipo == 'Otro' ? 'selected' : '' }}>Otro</option>
                 <option value="Sin tipo" {{ $tipo == 'Sin tipo' ? 'selected' : '' }}>Sin tipo</option>
             </select>
-            @error('tipo_de_entrada')
+            @error('tipo_de_evento')
                 <p class="error">{{ $message }}</p>
             @enderror
-            <label for="nombreentrada">Nombre del evento</label>
+            <label for="nombre_del_evento">Nombre del evento</label>
             <input type="text" name="nombre_del_evento" id="nombre_del_entrada" value="{{ $nombreDelEvento }}"
                 placeholder="Ejemplo: Concierto de Rock">
             @error('nombre_del_evento')

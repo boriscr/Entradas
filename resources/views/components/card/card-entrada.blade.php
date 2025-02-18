@@ -54,7 +54,7 @@ switch ($value->tipo_de_entrada) {
         </div>
         <div class="inicio-card">
             <h5 class="titulo-card">Información</h5>
-            <p><b>entradas disponibles: </b>{{ $value->cantidad }}</p>
+            <p><b>Disponible: </b>{{ $value->cantidad }} entradas {{$value->tipo_de_entrada}}</p>
         </div>
         <b class="valor-card">
             @if ($value->cupon == true)
@@ -79,29 +79,27 @@ switch ($value->tipo_de_entrada) {
             @endif
         </b>
         <div class="box-info-comprar">
-            <div class="box-info">
-                <a class="link-info" href="{{ route('indexentradas', ['id' => $value->id]) }}"><i
-                        class="bi bi-eye"></i></a>
-            </div>
             <div class="box-comprar">
-                <a class="link-comprar" href="#">COMPRAR AHORA</a>
+                <a class="link-comprar" id="link-comprar" href="#">COMPRAR AHORA</a>
             </div>
         </div>
     </div>
-    <div class="box-btn-edit-del">
-        <a href="{{ route('AdminEntradas.edit',$value->id) }}" class="btn-editar btn"><i
-                class="bi bi-pencil-fill"></i></a>
-        <a href="#" class="btn-finalizar btn"
-            onclick="return(confirm('¿Desea finalizar este entrada? Esto implica: \n1. No será visible para los visitantes.\n2. Los visitantes no tendrán acceso ni podrán adquirirlo.\n3. Los administradores podrán ver los datos.\n4. Finalizar el entrada NO elimina los datos de la base de datos.\n5. Esta acción es reversible.'))"><i
-                class="bi bi-x-lg"></i></a>
-        <form action="{{ route('AdminEntradas.destroy', $value->id) }}" method="post">
-            @csrf
-            @method('DELETE')
-            <button type="submit"
-                onclick="return confirm('¿Desea eliminar este entrada de la base de datos? Esto implica la pérdida total de toda la información relacionada.')"><i
-                    class="bi bi-trash-fill"></i></button>
-        </form>
-    </div>
+    @auth
+        <div class="box-btn-edit-del">
+            <a href="{{ route('AdminEntradas.edit', $value->id) }}" class="btn-editar btn"><i
+                    class="bi bi-pencil-fill"></i></a>
+            <a href="#" class="btn-finalizar btn"
+                onclick="return(confirm('¿Desea finalizar este entrada? Esto implica: \n1. No será visible para los visitantes.\n2. Los visitantes no tendrán acceso ni podrán adquirirlo.\n3. Los administradores podrán ver los datos.\n4. Finalizar el entrada NO elimina los datos de la base de datos.\n5. Esta acción es reversible.'))"><i
+                    class="bi bi-x-lg"></i></a>
+            <form action="{{ route('AdminEntradas.destroy', $value->id) }}" method="post">
+                @csrf
+                @method('DELETE')
+                <button type="submit"
+                    onclick="return confirm('¿Desea eliminar este entrada de la base de datos? Esto implica la pérdida total de toda la información relacionada.')"><i
+                        class="bi bi-trash-fill"></i></button>
+            </form>
+        </div>
+    @endauth
     <hr>
     <br>
 </div>
