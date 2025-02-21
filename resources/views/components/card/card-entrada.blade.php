@@ -84,14 +84,14 @@ switch ($value->tipo_de_entrada) {
             </div>
         </div>
     </div>
-    @auth
+    @role('Admin')
         <div class="box-btn-edit-del">
-            <a href="{{ route('AdminEntradas.edit', $value->id) }}" class="btn-editar btn"><i
+            <a href="{{ route('Entradas.edit', $value->id) }}" class="btn-editar btn"><i
                     class="bi bi-pencil-fill"></i></a>
             <a href="#" class="btn-finalizar btn"
                 onclick="return(confirm('¿Desea finalizar este entrada? Esto implica: \n1. No será visible para los visitantes.\n2. Los visitantes no tendrán acceso ni podrán adquirirlo.\n3. Los administradores podrán ver los datos.\n4. Finalizar el entrada NO elimina los datos de la base de datos.\n5. Esta acción es reversible.'))"><i
                     class="bi bi-x-lg"></i></a>
-            <form action="{{ route('AdminEntradas.destroy', $value->id) }}" method="post">
+            <form action="{{ route('Entradas.destroy', $value->id) }}" method="post">
                 @csrf
                 @method('DELETE')
                 <button type="submit"
@@ -99,7 +99,7 @@ switch ($value->tipo_de_entrada) {
                         class="bi bi-trash-fill"></i></button>
             </form>
         </div>
-    @endauth
+    @endrole
     <hr>
     <br>
 </div>

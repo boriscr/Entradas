@@ -11,9 +11,12 @@ use Barryvdh\DomPDF\Facade\Pdf; // Asegúrate de que esta línea esté presente
 use App\Http\Requests\EventoNuevoStoreRequest;
 use PHPUnit\Framework\Constraint\FileExists;
 use Psy\Readline\Hoa\FileLink;
+//Administrador de roles
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class EventoAdminController extends Controller
 {
+    use AuthorizesRequests;
     /**
      * Display a listing of the resource.
      */
@@ -132,6 +135,7 @@ class EventoAdminController extends Controller
      */
     public function edit(string $id)
     {
+        $this->authorize('admin-access');
         $evento = NewEvento::find($id);
         return view('Eventos.editEvento', compact('evento'));
     }
@@ -186,6 +190,17 @@ class EventoAdminController extends Controller
         session()->flash('good',[
             'title'=>'Eliminado!',
             'text'=>'Evento eliminado correctamente.',
+            'icon'=>'success',
+        ]);
+        return back();
+    }
+    public function finalizar($id){
+        $evento=NewEvento::findOrFail($id);
+        $evento->activo=false;
+        $evento->save();
+        session()->flash('good',[
+            'title'=>'Finalizado!',
+            'text'=>'Evento finalizado correctamente.',
             'icon'=>'success',
         ]);
         return back();

@@ -2,7 +2,7 @@
     <x-nav.nav />
     <div class="formularioBox">
         <x-form.formentrada
-        :ruta="route('AdminEntradas.edit')"
+        :ruta="route('entrada.edit')"
         :publico_check="$publico_check"
         :nombreDelentrada="$edit->nombre"
         :descripcionCorta="$edit->descripcion_corta"

@@ -9,7 +9,7 @@
 @endif
     <div class="formularioBox">
         <x-form.formEvento
-        :ruta="route('AdminEvento.update',$evento->id)"
+        :ruta="route('evento.update',$evento->id)"
         :metodo=true
         :portadaImg="$evento->portadaImg"
         :tipo="$evento->tipo_de_evento"

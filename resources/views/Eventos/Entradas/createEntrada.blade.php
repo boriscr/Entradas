@@ -8,12 +8,16 @@
         });  
     </script>  
 @endif
-
+<?php
+$eventoUnico=isset($eventoUnico)?$eventoUnico:null;
+$eventoAll=isset($evento)?$evento:null;
+?>
     <div class="formularioBox">
+
         <x-form.formentrada
-        :eventoName="$evento"
-        :publicoCheck="$publico_check"
-        :ruta="route('AdminEntradas.store')"
+        :eventoNameInd="$eventoUnico"
+        :eventoName="$eventoAll"
+        :ruta="route('entrada.store')"
         :descripcion="old('descripcion')"
         :precio="old('precio')"
         :cantidad="old('cantidad')"

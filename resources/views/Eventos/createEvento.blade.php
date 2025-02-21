@@ -11,7 +11,7 @@
 
     <div class="formularioBox">
     <x-form.formEvento
-    :ruta="route('AdminEvento.store')"
+    :ruta="route('evento.store')"
     :tipo="'Fiesta privada'"
     :publicoCheck="'checked'"
     :descripcion="old('descripcion')"

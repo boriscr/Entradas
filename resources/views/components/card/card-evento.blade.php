@@ -30,23 +30,29 @@
                 </div>
 
                 <div class="box-comprar">
-                    <a class="link-comprar" href="{{ route('AdminEvento.show', $eventos->id) }}">COMPRAR AHORA</a>
+                    <a class="link-comprar" href="{{ route('Eventos.show', $eventos->id) }}">COMPRAR AHORA</a>
                 </div>
             </div>
-            @auth
+            @role('Admin')
                 <div class="box-btn-edit-del">
-                    <a href="{{ route('AdminEvento.edit', $eventos->id) }}" class="btn-editar btn"><i
-                            class="bi bi-pencil-fill"></i></a>
-                    <a href="#" class="btn-finalizar btn"
-                        onclick="return(confirm('¿Desea finalizar este evento? Esto implica: \n1. No será visible para los visitantes.\n2. Los visitantes no tendrán acceso ni podrán adquirirlo.\n3. Los administradores podrán ver los datos.\n4. Finalizar el entrada NO elimina los datos de la base de datos.\n5. Esta acción es reversible.'))"><i
-                            class="bi bi-x-lg"></i></a>
-                    <form action="{{ route('AdminEvento.destroy', $eventos->id) }}" method="post">
+                    <a href="{{ route('evento.edit', $eventos->id) }}" class="btn-editar btn">
+                        <i class="bi bi-pencil-fill"></i>
+                    </a>
+                    <form action="{{ route('evento.finalizar', $eventos->id) }}" method="post">
+                        @csrf
+                        <button class="btn-finalizar btn" type="submit"
+                            onclick="return(confirm('¿Desea finalizar este evento? Esto implica: \n1. No será visible para los visitantes.\n2. Los visitantes no tendrán acceso ni podrán adquirirlo.\n3. Los administradores podrán ver los datos.\n4. Finalizar el entrada NO elimina los datos de la base de datos.\n5. Esta acción es reversible.'))">
+                            <i class="bi bi-x-lg"></i>
+                        </button>
+                    </form>
+
+                    <form action="{{ route('evento.destroy', $eventos->id) }}" method="post">
                         @csrf
                         @method('DELETE')
-                        <button type="submit"
+                        <button class="btn-destroy btn" type="submit"
                             onclick="return confirm('¿Desea eliminar este evento de la base de datos? Esto implica la pérdida total de toda la información relacionada.')"><i
                                 class="bi bi-trash-fill"></i></button>
                     </form>
                 </div>
-            @endauth
+            @endrole
         </div>

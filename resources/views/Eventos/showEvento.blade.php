@@ -14,11 +14,7 @@
             })
         </script>
     @endif
-    @auth
-        <div class="box-btn-new-entrada">
-            <a href="{{ route('AdminEntradas.create') }}"><i class="bi bi-plus-lg"></i>Crear nueva entrada</a>
-        </div>
-    @endauth
+
 
     <div class="containerEventoInfo">
         <div class="row-contenedor">
@@ -58,7 +54,11 @@
         </div>
     </div>
 
-
+    @role('Admin')
+        <div class="box-btn-new-entrada">
+            <a href="{{ route('entrada.create',$evento->id) }}"><i class="bi bi-plus-lg"></i></a>
+        </div>
+    @endrole
 
     <hr>
 
@@ -107,8 +107,13 @@
                                     </div>
                                 </div>
                             @endauth
-                            <div class="container-pago" id="container-pago" style="background: red">
-                                <h1>Inicie session para continuar.</h1>
+                            <div class="container-pago-no-loggin container-pago" id="container-pago">
+                                <span class="btn-login-registro">
+                                    <p>Inicie session para continuar.</p>
+                                    <a href="{{ route('login') }}">Iniciar sesion</a>
+                                    <a href="{{ route('register') }}">Crear cuenta</a>
+                                </span>
+                                <div class="btn-cancelar" id="btn-cancelar">Cancelar</div>
                             </div>
                         @endif
                     @endif

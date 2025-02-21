@@ -36,11 +36,18 @@ class EntradaAdminController extends Controller
         return view('pdf', compact('randomNumber'));
         */
     }
-    public function create()
+    public function create($id=null)
     {
-        $evento=NewEvento::all();
-        $publico_check=true;
-        return view('Eventos.Entradas.createEntrada', compact('publico_check','evento'));
+        if($id!=null){
+            $eventoUnico=NewEvento::find($id);
+            return view('Eventos.Entradas.createEntrada', compact('eventoUnico'));
+        }else{
+            $evento=NewEvento::all();
+            $publico_check=true;
+            return view('Eventos.Entradas.createEntrada', compact('publico_check','evento'));
+
+        }
+        
     }
 
     public function store(entradaNuevaStoreRequest $request)

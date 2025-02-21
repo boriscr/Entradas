@@ -7,10 +7,18 @@
             <hr>
             <label for="evento">Nombre del evento</label>
             <select name="evento" id="evento">
-                @foreach ($eventoName as $evento)
-                    <option value="{{ $evento->id }}">{{ $evento->nombre }}</option>
-                @endforeach
+                
+                @if ( $eventoNameInd!=null )
+                    <option value="{{ $eventoNameInd->id }}">{{ $eventoNameInd->nombre }}</option>
+                @else
+                    @foreach ($eventoName as $evento)
+                        @if ($evento->activo)
+                            <option value="{{ $evento->id }}">{{ $evento->nombre }}</option>
+                        @endif
+                    @endforeach
+                @endif
             </select>
+
             @error('evento')
                 <p class="error">{{ $message }}</p>
             @enderror
@@ -45,7 +53,8 @@
                 <p class="error">{{ $message }}</p>
             @enderror
             <label for="cantidad">Cantidad de entradas</label>
-            <input type="number" name="cantidad" id="cantidad" value="{{ $cantidad }}" placeholder="Ejemplo: 100">
+            <input type="number" name="cantidad" id="cantidad" value="{{ $cantidad }}"
+                placeholder="Ejemplo: 100">
             @error('cantidad')
                 <p class="error">{{ $message }}</p>
             @enderror
@@ -152,7 +161,7 @@
                 </div>
             </div>
             <br>
-            <button type="submit">{{$btnSubmitName}}</button>
+            <button type="submit">{{ $btnSubmitName }}</button>
         </div>
     </div>
 </form>

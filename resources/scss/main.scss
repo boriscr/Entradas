@@ -1,12 +1,15 @@
 @use 'config/utils';
+
 //Nav
 .collapse {
     display: flex;
     justify-content: space-between;
-    .ulLog{
+
+    .ulLog {
         flex-direction: row;
         gap: 10px;
-        *{
+
+        * {
             @extend %centrar;
             background-color: #fff;
             color: #000;
@@ -14,15 +17,26 @@
             height: 30px;
             border-radius: 10px;
         }
-        form{
+
+        form {
             background-color: transparent;
         }
     }
 }
 
+///Nav
+/// 
 
+.navbar .container-fluid .box-nav-admin{
+    display: flex;
+    align-items: center;
+    height: 100%;
+    .nav-admin {
+        font-weight: bold;
+    }
+} 
 
-//Alerta en el home- al eliminar entradas
+// en el home- al eliminar entradas
 
 
 
@@ -31,33 +45,41 @@
 .containerEventoInfo {
     width: 100%;
     display: flex;
-
-    .row-contenedor{
+    color: #fff;
+    .row-contenedor {
         flex-wrap: wrap;
         width: 100%;
         flex-direction: row;
         @extend %centrar;
         background-color: #000000;
+
         .column-img {
-            overflow:hidden;
+            overflow: hidden;
             width: 400px;
             @extend %centrar;
-            img{
-                object-fit:contain;
+
+            img {
+                object-fit: contain;
                 width: 500px;
                 height: 400px;
 
             }
         }
-        .info{
+
+        .info {
             width: 400px;
-            .bi-calendar2-check-fill{
+
+            .bi-calendar2-check-fill {
                 color: green;
             }
-            .bi-geo-alt-fill, .bi-calendar-x-fill{
+
+            .bi-geo-alt-fill,
+            .bi-calendar-x-fill {
                 color: red;
             }
-            .bi-alarm,.bi-cake2{
+
+            .bi-alarm,
+            .bi-cake2 {
                 color: #FFFFAC;
             }
         }
@@ -207,6 +229,7 @@
         }
 
         .btn-editar {
+            width: 80px;
             background-color: rgb(44, 202, 136);
 
             &:hover {
@@ -214,17 +237,29 @@
             }
         }
 
-        .btn-finalizar {
-            background-color: rgb(250, 83, 83);
-
-            &:hover {
-                @include utils.colorStyles(#ff2e2e, #ffffff, none);
-            }
-        }
 
         form {
-            width: 20%;
+            width: 30%;
             background-color: transparent;
+            @extend %centrar;
+
+            .btn-finalizar {
+                width: 80px;
+                background-color: rgb(250, 83, 83);
+
+                &:hover {
+                    @include utils.colorStyles(#ff2e2e, #ffffff, none);
+                }
+            }
+
+            .btn-destroy {
+                width: 50px;
+                background-color: #962631;
+
+                &:hover {
+                    @include utils.colorStyles(#b60101, #ffffff, #fff);
+                }
+            }
 
             button {
                 @extend %buttonStyle;
@@ -233,12 +268,6 @@
                 justify-content: center;
                 align-items: center;
                 width: 100%;
-                height: 40px;
-                background-color: #962631;
-
-                &:hover {
-                    @include utils.colorStyles(#b60101, #ffffff, #fff);
-                }
 
                 .bi {
                     font-size: 20px;
@@ -252,7 +281,7 @@
 /*Home*/
 //seccion cards- entradas
 .box-btn-new-entrada {
-    align-items: end;
+    align-items: center;
     @extend %centrar;
     padding: 1px;
 
@@ -262,20 +291,20 @@
         border-radius: 10px;
         height: 100%;
         padding: 5px;
-        background-color: #019a67;
-        color: #000;
+        background: transparent;
+        width: 50px;
+        height: 50px;
+        border: 2px solid #fff;
+        color: #ffffff;
 
         .bi {
-            color: #000;
+            color: #ffffff;
         }
 
         &:hover {
-            background-color: #02db93;
-            color: #014d34;
-
-            .bi {
-                color: #fff;
-            }
+            background: transparent;
+            transform: scale(0.9);
+            box-shadow: 0px 0px 10px rgb(186, 186, 186);
         }
     }
 }
@@ -433,7 +462,8 @@
                 }
             }
         }
-//Btn home show entradas
+
+        //Btn home show entradas
         .box-info-comprar {
             * {
                 @extend %centrar;
@@ -690,6 +720,46 @@
 }
 
 //Show Entradas --Pop Up pagar------------------------------------------------------------------
+.container-pago-no-loggin {
+    width: 500px;
+    height: 30vh !important;
+    bottom: 0;
+    background-color: #fff;
+    border-radius: 10px;
+    border: 1px solid #d7d7d7;
+    color: #000;
+    display: flex;
+    justify-content: space-around;
+
+    .btn-login-registro {
+        margin-top: 10px;
+        @extend %centrar;
+        gap: 10px;
+
+        a {
+            @extend %centrar;
+            color: #000;
+            border: 1px solid #5c5b5b;
+            width: 100px;
+            height: 30px;
+            border-radius: 5px;
+
+            &:hover {
+                background-color: #000;
+                color: #fff;
+            }
+        }
+    }
+
+    .btn-cancelar {
+        cursor: pointer;
+
+        &:hover {
+            font-weight: bold;
+        }
+    }
+}
+
 .container-pago {
     @extend %centrar;
     position: absolute;
@@ -799,16 +869,19 @@
 
 
 @media (max-width: 620px) {
+
     //nav btns inicio- registro y logout
-    .collapse{
+    .collapse {
         flex-direction: column;
         align-items: start;
-        .ulLog{
+
+        .ulLog {
             width: 100%;
             justify-content: center;
             flex-direction: row;
         }
     }
+
     //
     .contenedor-secundario-entrada {
         width: 100%;
