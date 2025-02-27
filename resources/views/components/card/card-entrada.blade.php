@@ -80,18 +80,20 @@ switch ($value->tipo_de_entrada) {
         </b>
         <div class="box-info-comprar">
             <div class="box-comprar">
+                
                 <a class="link-comprar" id="link-comprar" href="#">COMPRAR AHORA</a>
+                
             </div>
         </div>
     </div>
     @role('Admin')
         <div class="box-btn-edit-del">
-            <a href="{{ route('Entradas.edit', $value->id) }}" class="btn-editar btn"><i
+            <a href="{{ route('entrada.edit', $value->id) }}" class="btn-editar btn"><i
                     class="bi bi-pencil-fill"></i></a>
             <a href="#" class="btn-finalizar btn"
                 onclick="return(confirm('¿Desea finalizar este entrada? Esto implica: \n1. No será visible para los visitantes.\n2. Los visitantes no tendrán acceso ni podrán adquirirlo.\n3. Los administradores podrán ver los datos.\n4. Finalizar el entrada NO elimina los datos de la base de datos.\n5. Esta acción es reversible.'))"><i
                     class="bi bi-x-lg"></i></a>
-            <form action="{{ route('Entradas.destroy', $value->id) }}" method="post">
+            <form action="{{ route('entrada.destroy', $value->id) }}" method="post">
                 @csrf
                 @method('DELETE')
                 <button type="submit"

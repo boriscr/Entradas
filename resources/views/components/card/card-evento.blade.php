@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="box-comprar">
-                    <a class="link-comprar" href="{{ route('Eventos.show', $eventos->id) }}">COMPRAR AHORA</a>
+                    <a class="link-comprar" href="{{ route('evento.show', $eventos->id) }}">COMPRAR AHORA</a>
                 </div>
             </div>
             @role('Admin')

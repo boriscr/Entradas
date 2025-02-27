@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Newentrada extends Model
+class NewEntrada extends Model
 {
     // Indica el nombre de la tabla asociada al modelo
     protected $table = 'new_entradas';

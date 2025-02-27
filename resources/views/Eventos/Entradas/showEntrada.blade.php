@@ -115,18 +115,21 @@
                 <br>
                 
                 <div class="btn-comprar">
+                    <!--
                     <button id="btn-comprar-ahora">COMPRAR AHORA</button>
+                    -->
+                    <button id="btn-comprar-ahora" id="checkout-btn">COMPRAR AHORA</button>
                 </div>
                 <br>
             </div>
         </div>
     @endif
 
-<div class="container" id="container-pago">
+    <div class="container" id="container-pago">
         <div class="containerElementos">
 
             <h2 class="title-comprar">Comprar Ahora</h2>
-            <form method="post">
+            <form action="{{ route('crear-preferencia') }}" method="POST">
                 @csrf
                 <label for="Nombres">Nombres</label>
                 <input type="text" name="nombres" id="nombres" placeholder="Ejemplo: Juan Luis...">
@@ -140,18 +143,17 @@
                     <label for="cupon">Cupon</label>
                     <input type="text" name="cupon" id="cupon" placeholder="¿Tienes un cupón? Ingrésalo aquí">
                 @endif
-
+            
                 <div class="box-btn-cancelar-y-compar">
-                    <div class="btn-cancelar" id="btn-cancelar">Cancelar</div>
-                    <button class="btn-pagar" id="btn-pagar" type="submit">Pagar</button>
+                    <button class="btn-cancelar" id="btn-cancelar" type="button">Cancelar</button>
+                    <button class="btn-pagar" id="checkout-btn" type="submit">Pagar</button>
                 </div>
             </form>
             <div class="tipo-de-entrada">
                 <p>{{ $entradas->tipo_de_entrada }}</p>
             </div>
+        </div>
     </div>
-</div>
-
-
+ 
 
 </x-body.body>

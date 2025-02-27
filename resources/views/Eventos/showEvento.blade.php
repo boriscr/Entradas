@@ -56,7 +56,7 @@
 
     @role('Admin')
         <div class="box-btn-new-entrada">
-            <a href="{{ route('entrada.create',$evento->id) }}"><i class="bi bi-plus-lg"></i></a>
+            <a href="{{ route('entrada.create', $evento->id) }}"><i class="bi bi-plus-lg"></i></a>
         </div>
     @endrole
 
@@ -76,7 +76,7 @@
                                 <div class="container-pago" id="container-pago">
                                     <div class="containerElementos">
                                         <h2 class="title-comprar">Comprar Ahora</h2>
-                                        <form method="post">
+                                        <form action="{{route('crear-preferencia')}}" method="post">
                                             @csrf
                                             {{ $value->tipo_de_entrada }}
                                             <br>
@@ -97,8 +97,9 @@
                                             @endif
 
                                             <div class="box-btn-cancelar-y-compar">
-                                                <div class="btn-cancelar" id="btn-cancelar">Cancelar</div>
-                                                <button class="btn-pagar" id="btn-pagar" type="submit">Pagar</button>
+                                                <button class="btn-cancelar" id="btn-cancelar"
+                                                    type="button">Cancelar</button>
+                                                <button class="btn-pagar" id="checkout-btn" type="submit">Pagar</button>
                                             </div>
                                         </form>
                                         <div class="tipo-de-entrada">
@@ -106,6 +107,38 @@
                                         </div>
                                     </div>
                                 </div>
+                                <script>
+                                    // Configura el SDK de Mercado Pago con tu Public Key
+                                    const mp = new MercadoPago('APP_USR-5236e862-5902-496c-a440-d7754b2b2c5d', {
+                                        locale: 'es-AR' // Configura el idioma
+                                    });
+                                
+                                    // Maneja el clic en el botón de pago
+                                    document.getElementById('checkout-btn').addEventListener('click', async () => {
+                                        try {
+                                            // Llama a tu backend para crear la preferencia de pago
+                                            const response = await fetch('/crear-preferencia', {
+                                                method: 'POST',
+                                                headers: {
+                                                    'Content-Type': 'application/json',
+                                                    'X-CSRF-TOKEN': '{{ csrf_token() }}' // Protección CSRF de Laravel
+                                                }
+                                            });
+                                
+                                            const preference = await response.json();
+                                
+                                            // Abre el checkout de Mercado Pago con la preferencia creada
+                                            mp.checkout({
+                                                preference: {
+                                                    id: preference.id // ID de la preferencia
+                                                },
+                                                autoOpen: true, // Abre el checkout automáticamente
+                                            });
+                                        } catch (error) {
+                                            console.error('Error al crear la preferencia:', error);
+                                        }
+                                    });
+                                </script>
                             @endauth
                             <div class="container-pago-no-loggin container-pago" id="container-pago">
                                 <span class="btn-login-registro">

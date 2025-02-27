@@ -24,7 +24,7 @@
                 @if (Route::has('login'))
                     @auth
                     <ul>
-                        <p class="nav-admin">Hola! {{ auth()->user()->name }}</p>
+                        <p class="nav-admin">Hola, {{ auth()->user()->name }}</p>
                     </ul>
                     @endauth
                     <ul class="navbar-nav ulLog">

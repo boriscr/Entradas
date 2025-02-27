@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\NewEntrada;
 use App\Models\NewEvento;
 use Barryvdh\DomPDF\Facade\Pdf; // Asegúrate de que esta línea esté presente
-use App\Http\Requests\entradaNuevaStoreRequest;
+use App\Http\Requests\EntradaNuevaStoreRequest;
 
 class EntradaAdminController extends Controller
 {
@@ -50,7 +50,7 @@ class EntradaAdminController extends Controller
         
     }
 
-    public function store(entradaNuevaStoreRequest $request)
+    public function store(EntradaNuevaStoreRequest $request)
     {
         $entrada = new NewEntrada();
         //Columna1: Nombre, Descripción, Precio, Cantidad
