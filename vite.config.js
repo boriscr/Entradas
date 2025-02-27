@@ -10,7 +10,7 @@ export default defineConfig({
                 'resources/scss/layouts/form.scss',
                 'resources/scss/main.scss',
                 'resources/js/dom.js',
-                'resources/js/inputsFormCreate.js',
+                'resources/js/checkboxFormEntrada.js',
                 'resources/js/checkboxFormEvento.js',
                 'resources/js/btnComprar.js',
                  'resources/js/app.js'],
