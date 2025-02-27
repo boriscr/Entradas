@@ -13,9 +13,16 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Crear el rol "Admin"
         $role = Role::create(['name' => 'Admin']);
-        $user=User::find(1);
-        $user->assignRole($role);
+    
+        // Buscar al usuario por su correo electrónico
+        $user = User::where('email', 'admin@example.com')->first();
+    
+        // Si el usuario existe, asignarle el rol "Admin"
+        if ($user) {
+            $user->assignRole($role);
+        }
     }
 
     /**
