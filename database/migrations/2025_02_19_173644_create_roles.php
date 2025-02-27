@@ -17,7 +17,7 @@ return new class extends Migration
         $role = Role::create(['name' => 'Admin']);
     
         // Buscar al usuario por su correo electrónico
-        $user = User::where('email', 'admin@example.com')->first();
+        $user = User::where('email', 'boris@admin.com')->first();
     
         // Si el usuario existe, asignarle el rol "Admin"
         if ($user) {
