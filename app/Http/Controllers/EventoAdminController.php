@@ -126,7 +126,9 @@ class EventoAdminController extends Controller
     {
         $evento = NewEvento::findOrFail($id);
         // Obtén todas las entradas que tienen el mismo id_evento
-        $entradasRelacionadas = NewEntrada::where('id_evento', $id)->get();
+        $entradasRelacionadas = NewEntrada::where('id_evento', $id)
+        ->where('activo', true)
+        ->get();
         return view('Eventos.showEvento', compact('evento', 'entradasRelacionadas'));
     }
 

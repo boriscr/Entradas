@@ -74,12 +74,12 @@
                                     <p>Precio: ${{ $entradas->precio }}</p>
                                 @endif
                             @elseif ($entradas->cupon == false)
-                            @if ($entradas->porcentaje_de_descuento == true)
-                                <p>Precio: ${{ $entradas->precio_final }}</p>
-                            @else
-                                <p>Precio: ${{ $entradas->precio }}</p>
+                                @if ($entradas->porcentaje_de_descuento == true)
+                                    <p>Precio: ${{ $entradas->precio_final }}</p>
+                                @else
+                                    <p>Precio: ${{ $entradas->precio }}</p>
+                                @endif
                             @endif
-                        @endif
                         </b>
                         <p><b>Tipo de entrada: </b>{{ $entradas->tipo_de_entrada }}</p>
                         <p><b>entradas disponibles: </b>{{ $entradas->cantidad }}</p>
@@ -113,47 +113,156 @@
                     </div>
                 </div>
                 <br>
-                
+
                 <div class="btn-comprar">
-                    <!--
-                    <button id="btn-comprar-ahora">COMPRAR AHORA</button>
-                    -->
-                    <button id="btn-comprar-ahora" id="checkout-btn">COMPRAR AHORA</button>
+                    @if ($entradas->cantidad > 0)
+                        <button id="btn-comprar">COMPRAR AHORA</button>
+
+                        <div class="container-pago" id="container-pago">
+                            <div class="containerElementos">
+                                <form action="#" method="POST" class="order-form">
+                                    @csrf
+                                    <div class="form-group">
+                                        <label for="tipo_de_entrada">Tipo de Entrada</label>
+                                        <input type="text" id="tipo_de_entrada" name="tipo_de_entrada"
+                                            value="{{ $entradas->tipo_de_entrada }}" readonly />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="descripcion">Descripción</label>
+                                        <textarea id="descripcion" name="descripcion" readonly>{{ $entradas->descripcion }}</textarea>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="precio">Precio</label>
+                                        <input type="text" id="precio" name="precio"
+                                            value="{{ $entradas->precio }}" readonly />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cantidad">Cantidad de entradas</label>
+                                        <div class="cantidad-box">
+                                            <button type="button" id="btn-cantidad-menos">-</button>
+                                            <input type="text" id="cantidad" name="cantidad" min="1"
+                                                max="{{ $entradas->cantidad }}" value="1" required />
+                                            <button type="button" id="btn-cantidad-mas">+</button>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="nombre">Nombre</label>
+                                        <input type="text" id="nombre" name="nombre" value="{{@Auth::user()->name}}" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="apellido">Apellido</label>
+                                        <input type="text" id="apellido" name="apellido" value="{{@Auth::user()->surname}}" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email</label>
+                                        <input type="email" id="email" name="email" value="{{@Auth::user()->email}}" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="telefono">Teléfono</label>
+                                        <input type="tel" id="telefono" name="telefono" required />
+                                    </div>
+                                    <div class="box-btn-cancelar-y-compar">
+                                        <button class="btn-cancelar" id="btn-cancelar" type="button">Cancelar</button>
+                                        <button class="btn-submit" id="checkout-btn" type="button">Pagar</button>
+                                    </div>
+                                    @if ($entradas->cantidad <= 0)
+                                        <script>
+                                            document.addEventListener('DOMContentLoaded', function() {
+                                                Swal.fire({
+                                                    title: 'Error!',
+                                                    text: 'Entradas agotadas.',
+                                                    icon: 'error',
+                                                    confirmButtonText: 'Aceptar'
+                                                });
+                                                return;
+                                            });
+                                        </script>
+                                    @endif
+                                </form>
+                            </div>
+                        </div>
+
+                        <script src="https://sdk.mercadopago.com/js/v2"></script>
+                        <script>
+                            const mp = new MercadoPago("{{ env('MERCADO_PAGO_PUBLIC_KEY') }}");
+
+                            document.getElementById('checkout-btn').addEventListener('click', function() {
+                                const cantidad = parseInt(document.getElementById('cantidad').value, 10);
+                                const nombre = document.getElementById('nombre').value;
+                                const apellido = document.getElementById('apellido').value;
+                                const email = document.getElementById('email').value;
+                                const telefono = document.getElementById('telefono').value;
+
+                                if (!cantidad || !nombre || !apellido || !email || !telefono) {
+                                    Swal.fire({
+                                        title: 'Error!',
+                                        text: 'Por favor, completa todos los campos del formulario.',
+                                        icon: 'error',
+                                        confirmButtonText: 'Aceptar'
+                                    });
+                                    return;
+                                }
+
+                                const orderData = {
+                                    product: [{
+                                        id: "{{ $entradas->id }}", // ID de la entrada
+                                        title: "{{ $entradas->tipo_de_entrada }}", // Tipo de entrada
+                                        description: "{{ $entradas->descripcion }}", // Descripción de la entrada
+                                        currency_id: "ARS", // Moneda (ajusta según tu país)
+                                        quantity: cantidad, // Cantidad de entradas
+                                        unit_price: parseFloat("{{ $entradas->precio }}"), // Precio por entrada
+                                    }],
+                                    name: nombre,
+                                    surname: apellido, // Si tienes un campo de apellido, añádelo aquí
+                                    email: email,
+                                    phone: telefono,
+                                    external_reference: "{{ $entradas->id }}", // Pasa el ID de la entrada como referencia externa
+                                    quantity: cantidad, // Pasa la cantidad de entradas compradas
+                                };
+
+                                console.log('Datos del pedido:', orderData);
+
+                                fetch('/create-preference', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-Type': 'application/json',
+                                            'X-CSRF-TOKEN': document.querySelector('input[name="_token"]').value
+                                        },
+                                        body: JSON.stringify(orderData)
+                                    })
+                                    .then(response => {
+                                        if (!response.ok) {
+                                            throw new Error('Error en la respuesta del servidor');
+                                        }
+                                        return response.json();
+                                    })
+                                    .then(preference => {
+                                        if (preference.error) {
+                                            throw new Error(preference.error);
+                                        }
+                                        mp.checkout({
+                                            preference: {
+                                                id: preference.id // Asegúrate de que esta línea sea correcta
+                                            },
+                                            autoOpen: true
+                                        });
+                                        console.log('Respuesta de la preferencia:', preference);
+                                    })
+                                    .catch(error => console.error('Error al crear la preferencia:', error));
+                            });
+                        </script>
+                    @else
+                        <span>Entrada agotada</span>
+                    @endif
                 </div>
                 <br>
             </div>
         </div>
     @endif
 
-    <div class="container" id="container-pago">
-        <div class="containerElementos">
 
-            <h2 class="title-comprar">Comprar Ahora</h2>
-            <form action="{{ route('crear-preferencia') }}" method="POST">
-                @csrf
-                <label for="Nombres">Nombres</label>
-                <input type="text" name="nombres" id="nombres" placeholder="Ejemplo: Juan Luis...">
-                <label for="apellido">Apellido</label>
-                <input type="text" name="apellido" id="apellido" placeholder="Ejemplo: Perez">
-                <label for="email">Email</label>
-                <input type="email" name="email" id="email" placeholder="Ejemplo: email@email.com">
-                <label for="cantidad">Cantidad de entradas</label>
-                <input type="number" name="cantidad" id="cantidad" value="1">
-                @if($entradas->cupon == true)
-                    <label for="cupon">Cupon</label>
-                    <input type="text" name="cupon" id="cupon" placeholder="¿Tienes un cupón? Ingrésalo aquí">
-                @endif
-            
-                <div class="box-btn-cancelar-y-compar">
-                    <button class="btn-cancelar" id="btn-cancelar" type="button">Cancelar</button>
-                    <button class="btn-pagar" id="checkout-btn" type="submit">Pagar</button>
-                </div>
-            </form>
-            <div class="tipo-de-entrada">
-                <p>{{ $entradas->tipo_de_entrada }}</p>
-            </div>
-        </div>
-    </div>
- 
+
 
 </x-body.body>

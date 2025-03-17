@@ -11,13 +11,14 @@
 <?php
 $eventoUnico=isset($eventoUnico)?$eventoUnico:null;
 $eventoAll=isset($evento)?$evento:null;
+$id=$eventoUnico!=null?$eventoUnico:$eventoAll;
 ?>
     <div class="formularioBox">
 
         <x-form.formentrada
         :eventoNameInd="$eventoUnico"
         :eventoName="$eventoAll"
-        :ruta="route('entrada.store')"
+        :ruta="route('entrada.store',$id)"
         :descripcion="old('descripcion')"
         :precio="old('precio')"
         :cantidad="old('cantidad')"

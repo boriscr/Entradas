@@ -1,0 +1,88 @@
+                            <div class="container-pago" id="container-pago">
+                                <div class="containerElementos">
+                                    <form action="{{route('crear-preferencia')}}" method="post">
+                                        @csrf
+                                        {{ $value->tipo_de_entrada }}
+                                        <br>
+                                        {{ $value->descripcion }}
+                                        {{ $value->tipo_de_entrada }}
+                                        <label for="Nombres">Nombres</label>
+                                        <input type="text" name="nombres" id="nombres"
+                                            placeholder="Ejemplo: Juan Luis..." value="{{ auth()->user()->name }}">
+                                        <label for="email">Email</label>
+                                        <input type="email" name="email" id="email"
+                                            placeholder="Ejemplo: email@email.com" value="{{ auth()->user()->email }}">
+                                        <label for="cantidad">Cantidad de entradas</label>
+                                        <input type="number" name="cantidad" id="cantidad" value="1">
+                                        @if ($value->cupon == true)
+                                            <label for="cupon">Cupon</label>
+                                            <input type="text" name="cupon" id="cupon"
+                                                placeholder="¿Tienes un cupón? Ingrésalo aquí">
+                                        @endif
+
+                                        <div class="box-btn-cancelar-y-compar">
+                                            <button class="btn-cancelar" id="btn-cancelar"
+                                                type="button">Cancelar</button>
+                                                <button class="btn-pagar" id="checkout-btn" type="submit">Pagar</button>
+                                            </div>
+                                        </form>
+
+                                    <h2 class="title-comprar">Comprar Ahora</h2>
+                                </div>
+                            </div>
+
+
+
+
+
+                            <!-- Incluye el SDK de Mercado Pago -->
+                            <script src="https://sdk.mercadopago.com/js/v2"></script>
+                            
+                            <script>
+                                // Configura el SDK de Mercado Pago con tu Public Key
+                                const mp = new MercadoPago('APP_USR-5236e862-5902-496c-a440-d7754b2b2c5d', {
+                                    locale: 'es-AR' // Configura el idioma
+                                });
+                            
+                                // Maneja el clic en el botón de pago
+                                document.getElementById('checkout-btn').addEventListener('click', async () => {
+                                    try {
+                                        // Llama a tu backend para crear la preferencia de pago
+                                        const response = await fetch('/crear-preferencia', {
+                                            method: 'POST',
+                                            headers: {
+                                                'Content-Type': 'application/json',
+                                                'X-CSRF-TOKEN': '{{ csrf_token() }}' // Protección CSRF de Laravel
+                                            }
+                                        });
+                            
+                                        const preference = await response.json();
+                            
+                                        // Abre el checkout de Mercado Pago con la preferencia creada
+                                        mp.checkout({
+                                            preference: {
+                                                id: preference.id // ID de la preferencia
+                                            },
+                                            autoOpen: true, // Abre el checkout automáticamente
+                                        });
+                                    } catch (error) {
+                                        console.error('Error al crear la preferencia:', error);
+                                    }
+                                });
+                            </script>
+
+
+
+
+
+
+
+
+                                                        <div class="container-pago-no-loggin container-pago" id="container-pago">
+                                <span class="btn-login-registro">
+                                    <p>Inicie session para continuar.</p>
+                                    <a href="{{ route('login') }}">Iniciar sesion</a>
+                                    <a href="{{ route('register') }}">Crear cuenta</a>
+                                </span>
+                                <div class="btn-cancelar" id="btn-cancelar">Cancelar</div>
+                            </div>

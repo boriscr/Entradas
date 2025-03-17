@@ -1,37 +1,28 @@
 <?php
+use Illuminate\Http\Request;
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EntradaAdminController;
 use App\Http\Controllers\EventoAdminController;
 
-use App\Http\Controllers\EventoUsuarioController;
+use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\MercadoPagoController;
 
-// Ruta para mostrar el formulario de pago
-Route::get('/pagar', function () {
-    return view('mercado_pago'); // Asegúrate de que esta vista exista
-});
-
-// Ruta para crear la preferencia de pago (POST)
-Route::post('/crear-preferencia', [MercadoPagoController::class, 'createPreference'])->name('crear-preferencia');
+// Ruta para crear la preferencia de pago
+Route::post('/create-preference', [MercadoPagoController::class, 'createPaymentPreference'])->name('create-preference');
 
 // Rutas para manejar respuestas de Mercado Pago
-Route::get('/pago-exitoso', function () {
-    return 'Pago exitoso'; // Personaliza esta vista
-});
+Route::get('/mercadopago/success', [ClienteController::class,'index'])->name('mercadopago.success');
 
-Route::get('/pago-fallido', function () {
+Route::get('/mercadopago/failed', function () {
     return 'Pago fallido'; // Personaliza esta vista
-});
+})->name('mercadopago.failed');
 
-Route::get('/pago-pendiente', function () {
-    return 'Pago pendiente'; // Personaliza esta vista
-});
 
 // Página de inicio y detalles de eventos (Acceso público)
 Route::get('/', [EventoAdminController::class,'index'])->name('home');
-Route::post('/Eventos/{Evento}', [EventoAdminController::class, 'show'])->name('evento.show');
+Route::get('/Eventos/{Evento}', [EventoAdminController::class, 'show'])->name('evento.show');
 
 Route::middleware(['auth', 'can:admin-access'])->group(function () {
     Route::get('/AdminEvento/create', [EventoAdminController::class, 'create'])->name('evento.create');
@@ -42,7 +33,6 @@ Route::middleware(['auth', 'can:admin-access'])->group(function () {
     Route::post('/AdminEvento/finalizar/{id}',[EventoAdminController::class, 'finalizar'])->name('evento.finalizar');
 });
 
-
 Route::middleware(['auth','can:admin-access'])->group(function(){
     Route::get('/AdminEntrada/create/{id?}',[EntradaAdminController::class, 'create'])->name('entrada.create');
     Route::post('/AdminEntrada/store/{id}', [EntradaAdminController::class,'store'])->name('entrada.store');
@@ -51,8 +41,10 @@ Route::middleware(['auth','can:admin-access'])->group(function(){
 });
 
 
-
-Route::resource('User',EventoUsuarioController::class);
+Route::middleware('auth')->group(function(){
+    Route::get('/AdminEntrada/show/{id?}',[EntradaAdminController::class, 'show'])->name('entrada.show');
+    Route::get('verEntrada/',[ClienteController::class,'index'])->name('entrada.index');
+});
 /*
 Route::get('/', function () {
     return view('welcome');

@@ -41,6 +41,16 @@ switch ($value->tipo_de_entrada) {
         break;
 }
 ?>
+
+<div class="container-pago-no-loggin container-pago" id="container-pago">
+    <div class="btn-login-registro">
+        <p>Inicie sesion para continuar.</p>
+        <a href="{{ route('login') }}">Iniciar sesion</a>
+        <a href="{{ route('register') }}">Crear cuenta</a>
+    </div>
+    <div class="btn-cancelar" id="btn-cancelar">Cancelar</div>
+</div>
+
 <div class="div-contenedor-general-admin">
     <div class="{{ $boxTipoDeentrada }} style-contenedor-general">
         <div class="nombre-de-entrada">
@@ -54,8 +64,12 @@ switch ($value->tipo_de_entrada) {
         </div>
         <div class="inicio-card">
             <h5 class="titulo-card">Información</h5>
-            <p><b>Disponible: </b>{{ $value->cantidad }} entradas {{$value->tipo_de_entrada}}</p>
+            <p><b>Disponible: </b>{{ $value->cantidad }} entradas {{ $value->tipo_de_entrada }}</p>
         </div>
+
+                    
+
+
         <b class="valor-card">
             @if ($value->cupon == true)
                 @if ($value->porcentaje_de_descuento == true)
@@ -80,16 +94,19 @@ switch ($value->tipo_de_entrada) {
         </b>
         <div class="box-info-comprar">
             <div class="box-comprar">
-                
-                <a class="link-comprar" id="link-comprar" href="#">COMPRAR AHORA</a>
-                
+                @if (auth()->check())
+                    <a class="link-comprar" id="link-comprar" href="{{ route('entrada.show', $value->id) }}">COMPRAR
+                        AHORA</a>
+                @else
+                <a class="link-comprar no-loggin" href="#">COMPRAR AHORA</a>
+                @endif
+
             </div>
         </div>
     </div>
     @role('Admin')
         <div class="box-btn-edit-del">
-            <a href="{{ route('entrada.edit', $value->id) }}" class="btn-editar btn"><i
-                    class="bi bi-pencil-fill"></i></a>
+            <a href="{{ route('entrada.edit', $value->id) }}" class="btn-editar btn"><i class="bi bi-pencil-fill"></i></a>
             <a href="#" class="btn-finalizar btn"
                 onclick="return(confirm('¿Desea finalizar este entrada? Esto implica: \n1. No será visible para los visitantes.\n2. Los visitantes no tendrán acceso ni podrán adquirirlo.\n3. Los administradores podrán ver los datos.\n4. Finalizar el entrada NO elimina los datos de la base de datos.\n5. Esta acción es reversible.'))"><i
                     class="bi bi-x-lg"></i></a>

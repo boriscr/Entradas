@@ -115,8 +115,9 @@ class EntradaAdminController extends Controller
         ]);
         return back();
     }
-    public function show(){
-        //
+    public function show($id){
+        $entradas=NewEntrada::findOrFail($id);
+        return view('Eventos.Entradas.showEntrada', compact('entradas'));
     }
 
     public function edit($id)

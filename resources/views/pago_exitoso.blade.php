@@ -116,6 +116,14 @@
 }
 
 </style>
+
+
+<!-- resources/views/pago_exitoso.blade.php -->
+
+
+
+
+
 <div class="box" id="box">
     <div class="contentTicket">
         <div class="marca-agua">

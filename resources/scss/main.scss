@@ -27,15 +27,16 @@
 ///Nav
 /// 
 
-.navbar .container-fluid .box-nav-admin{
+.navbar .container-fluid .box-nav-admin {
     display: flex;
     align-items: center;
     height: 100%;
     gap: 5px;
+
     .nav-admin {
         font-weight: bold;
     }
-} 
+}
 
 // en el home- al eliminar entradas
 
@@ -47,6 +48,7 @@
     width: 100%;
     display: flex;
     color: #fff;
+
     .row-contenedor {
         flex-wrap: wrap;
         width: 100%;
@@ -315,11 +317,11 @@
     justify-content: center;
     flex-wrap: wrap;
     user-select: none;
+    position: relative;
 
     //Card view
     .div-contenedor-general-admin {
         margin-top: 20px;
-
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -721,28 +723,34 @@
 }
 
 //Show Entradas --Pop Up pagar------------------------------------------------------------------
+#container-pago {
+    display: none;
+}
+
 .container-pago-no-loggin {
     width: 500px;
     height: 30vh !important;
-    bottom: 0;
     background-color: #fff;
     border-radius: 10px;
     border: 1px solid #d7d7d7;
     color: #000;
-    display: flex;
     justify-content: space-around;
 
     .btn-login-registro {
         margin-top: 10px;
         @extend %centrar;
         gap: 10px;
-
+        width: 70%;
+        :nth-child(1){
+            font-weight: bold;
+            font-size: 20px;
+        }
         a {
             @extend %centrar;
             color: #000;
             border: 1px solid #5c5b5b;
-            width: 100px;
-            height: 30px;
+            width: 100%;
+            height: 50px;
             border-radius: 5px;
 
             &:hover {
@@ -761,14 +769,14 @@
     }
 }
 
+//Pop up - Formulario pagar
 .container-pago {
     @extend %centrar;
     position: absolute;
     z-index: 5;
     height: 100%;
-    margin-top: -500px;
+    margin-top: 50px;
     width: 500px;
-    display: none;
 
     .containerElementos {
         width: 95%;
@@ -796,15 +804,40 @@
             @extend %centrar;
             padding: 20px;
 
-            input:not(#cantidad) {
-                padding: 5px;
+            .form-group {
                 width: 100%;
-                text-align: start;
-                font-size: 17px;
-            }
 
-            #cantidad {
-                width: 100%;
+                * {
+                    width: 100%;
+                    justify-content: center;
+                    @extend %centrar;
+                }
+
+                .cantidad-box {
+                    @extend %centrar;
+                    flex-direction: row;
+
+                    button {
+                        width: 30%;
+                    }
+
+                    input {
+                        width: 10%;
+                    }
+                }
+
+                input:not(#cantidad) {
+                    padding: 5px;
+                    width: 100%;
+                    text-align: center;
+                    font-size: 17px;
+                }
+
+                #cantidad {
+                    width: 100%;
+                }
+
+
             }
 
             .box-btn-cancelar-y-compar {

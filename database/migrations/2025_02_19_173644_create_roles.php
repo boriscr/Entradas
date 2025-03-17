@@ -23,7 +23,8 @@ return new class extends Migration
             // Crear un usuario administrador por defecto
             $user = User::create([
                 'name' => 'Admin',
-                'dni'=> 00000000,
+                'surname' => 'Kredensir',
+                'dni' => '99999999',
                 'email' => 'boris@admin.com',
                 'password' => Hash::make('borisadminB@1'), // Cambia 'password' por una contraseña segura
             ]);
