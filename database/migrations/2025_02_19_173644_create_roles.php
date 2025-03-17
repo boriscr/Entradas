@@ -25,15 +25,15 @@ return new class extends Migration
                 'name' => 'Admin',
                 'surname' => 'Kredensir',
                 'dni' => '99999999',
-                'email' => 'boris@admin.com',
-                'password' => Hash::make('borisadminB@1'), // Cambia 'password' por una contraseña segura
+                'email' => 'administrador@gmail.com',
+                'password' => Hash::make('Administrador@1'), // Cambia 'password' por una contraseña segura
             ]);
 
             // Asignar el rol "Admin" al usuario creado
             $user->assignRole($role);
         } else {
             // Si ya existe algún usuario, buscar al usuario con el correo "boris@admin.com"
-            $user = User::where('email', 'boris@admin.com')->first();
+            $user = User::where('email', 'administrador@gmail.com')->first();
 
             // Si el usuario existe, asignarle el rol "Admin"
             if ($user) {
