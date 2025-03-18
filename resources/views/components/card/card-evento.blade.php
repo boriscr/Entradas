@@ -8,7 +8,7 @@
                 <!-- Visualizacion de imagel de evento en local -->
                 {{-- <img src=" {{ asset('storage/eventosImg/' . $eventos->portadaImg) }}" alt="portadaImg">--}}
                 <!-- Visualizacion de imagel de evento en servidor s3 -->
-                <img src="{{ Storage::disk('s3')->url($evento->portadaImg) }}" alt="Portada del evento">
+                <img src="{{ Storage::disk('s3')->url($eventos->portadaImg) }}" alt="Portada del evento">
             </div>
             <div class="style-contenedor-general">
                 <div class="nombre-de-entrada">
