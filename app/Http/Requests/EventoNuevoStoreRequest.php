@@ -33,7 +33,7 @@ class EventoNuevoStoreRequest extends FormRequest
             //Columna3: Fecha de fin
             'fecha_a_finalizar' => 'required|date',
             'hora_a_finalizar' => 'required|string',
-            'portada_image' => 'required|mimes:png,jpg,jpeg|max:4096',
+            'portada_image' => 'required|mimes:png,jpg,jpeg|max:10240',
         ];
     }
 }
