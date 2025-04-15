@@ -3,7 +3,7 @@
     <div class="boxContenidoForm">
         <h3>1/3</h3>
         <div class="contenidoForm">
-            <h3>Crear nuevo entrada</h3>
+            <h3>Crear nueva entrada</h3>
             <hr>
             <label for="evento">Nombre del evento</label>
             <select name="evento" id="evento">
